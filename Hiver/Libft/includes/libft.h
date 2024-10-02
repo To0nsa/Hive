@@ -16,12 +16,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+#define NULL ((void*)0)
+
 typedef unsigned long long size_t;
 
 int		ft_strlen(char *str);
 void	ft_putstr(char *str);
-void	ft_par_free(struct s_stock_str *par, int ac);
-void	ft_show_tab(struct s_stock_str	*par);
 char	*ft_strdup(char *src);
 void	ft_putchar(char c);
 void	ft_putnbr(int nb);
