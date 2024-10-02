@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_stock_str.h                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nlouis <nlouis@student.hive.fi>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 19:47:37 by nlouis            #+#    #+#             */
-/*   Updated: 2024/09/23 13:52:19 by nlouis           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -16,7 +5,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+#define TRUE 1
+#define FALSE 0
 #define NULL ((void*)0)
+#define EOF (-1)
 
 typedef unsigned long long size_t;
 

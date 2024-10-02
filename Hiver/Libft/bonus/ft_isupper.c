@@ -1,16 +1,20 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_isupper.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 20:04:21 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 20:04:21 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-int	ft_isalpha(int c)
+int	ft_isupper(int c)
 {
 	return (c >= 'A' && c <= 'Z');
 }
+
+/*## Function: `ft_isupper`
+
+ The `ft_isupper` function checks whether the given character `c` is an uppercase letter.
+ Uppercase letters are defined as the characters between `'A'` and `'Z'` in the ASCII table.
+
+### Parameters:
+ - `int c`: The character to be checked. The argument is typically passed as
+ an `unsigned char` cast to `int`, or `EOF`.
+
+### Return:
+ - Non-zero value: If `c` is an uppercase letter (a character between `'A'` and `'Z'`),
+ the function returns a non-zero value (true).
+ - Zero: If `c` is not an uppercase letter, the function returns 0.*/
+ 
