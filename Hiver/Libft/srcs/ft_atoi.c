@@ -1,3 +1,6 @@
+
+#include <libft.h>
+
 static int	ft_isspace(int c)
 {
 	return (c == ' ' || (c >= '\t' && c <= '\r'));
@@ -10,7 +13,7 @@ int	ft_atoi(const char *str)
 
 	result = 0;
 	sign = 1;
-	while (ispace(*str))
+	while (ft_isspace(*str))
 		str++;
 	if (*str == '-' || *str == '+')
 	{
@@ -24,6 +27,37 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (result * sign);
+}
+
+#include <stdio.h>
+int	main(void)
+{
+	const char *test_cases[] = {
+		"42",          // Simple positive number
+		"-42",         // Simple negative number
+		"   123",      // Leading spaces
+		"   -123",     // Leading spaces with negative sign
+		"+123",        // Positive sign
+		"0",           // Zero
+		"-0",          // Negative zero
+		"2147483647",  // Maximum int
+		"-2147483648", // Minimum int
+		"   +000123",  // Leading zeros and spaces
+		"123abc",      // Invalid characters after number
+		"abc123",      // Invalid characters before number
+		"   +   123",  // Invalid characters in between
+		"",            // Empty string
+		"++++123",     // Multiple signs
+		NULL           // End of test cases
+	};
+	int i = 0;
+
+	while (test_cases[i])
+	{
+		printf("Input: '%s' => Output: %d\n", test_cases[i], ft_atoi(test_cases[i]));
+		i++;
+	}
+	return (0);
 }
 
 /*## Function: ft_atoi

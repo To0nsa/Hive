@@ -13,7 +13,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	new_str = (char *)malloc((len + 1) * sizeof(char));
 	if (!new_str)
 		return (NULL);
-		i = 0;
+	i = 0;
 	while (i < len)
 	{
 		new_str[i] = f(i, s[i]);

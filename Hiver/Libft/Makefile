@@ -1,61 +1,106 @@
 # **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nlouis <nlouis@student.hive.fi>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/19 13:44:23 by nlouis            #+#    #+#              #
-#    Updated: 2024/09/22 22:22:49 by nlouis           ###   ########.fr        #
-#                                                                              #
+#                                   VARIABLES                                  #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes
+# Compiler and flags
+CC      = cc
+CFLAGS  = -Wall -Wextra -Werror -I include
 
+# Directories
 SRC_DIR = srcs
+LIB_DIR = lib
+INC_DIR = include
 
-SRC = $(SRC_DIR)/ft_clean_input.c \
-	$(SRC_DIR)/ft_putstr.c \
-	$(SRC_DIR)/ft_putnbr.c \
-	$(SRC_DIR)/ft_strlcat.c \
-	$(SRC_DIR)/ft_strlcpy.c \
-	$(SRC_DIR)/ft_strlen.c \
-	$(SRC_DIR)/ft_strstrs.c \
-	$(SRC_DIR)/ft_dict_free.c \
-	$(SRC_DIR)/ft_extract_entry.c \
-	$(SRC_DIR)/ft_dict_handling.c \
-	$(SRC_DIR)/ft_skip_whitespace.c \
-	$(SRC_DIR)/ft_clean_input.c \
-	$(SRC_DIR)/ft_strcpy.c \
-	$(SRC_DIR)/ft_argc_two.c \
-	$(SRC_DIR)/ft_strncpy.c \
-	$(SRC_DIR)/ft_strcmp.c \
-	$(SRC_DIR)/ft_strcat.c \
-	$(SRC_DIR)/main.c 
+# Library name
+NAME    = libft.a
 
-OBJ = $(SRC:.c=.o)
+# Source files
+SRCS    = ft_atoi.c \
+          ft_bzero.c \
+          ft_calloc.c \
+          ft_isalnum.c \
+          ft_isalpha.c \
+          ft_isascii.c \
+          ft_isdigit.c \
+          ft_isprint.c \
+          ft_itoa.c \
+          ft_memchr.c \
+          ft_memcmp.c \
+          ft_memcpy.c \
+          ft_memmove.c \
+          ft_memset.c \
+          ft_putchar_fd.c \
+          ft_putendl_fd.c \
+          ft_putnbr_fd.c \
+          ft_putstr_fd.c \
+          ft_split.c \
+          ft_strchr.c \
+          ft_strdup.c \
+          ft_striteri.c \
+          ft_strjoin.c \
+          ft_strlcat.c \
+          ft_strlcpy.c \
+          ft_strlen.c \
+          ft_strmapi.c \
+          ft_strncmp.c \
+          ft_strnstr.c \
+          ft_strrchr.c \
+          ft_strtrim.c \
+          ft_substr.c \
+          ft_tolower.c \
+          ft_toupper.c
 
-LIB = libft.a
-NAME = rush-02
+# Add the SRC_DIR prefix to source files
+SRCS    := $(addprefix $(SRC_DIR)/, $(SRCS))
 
-all: $(NAME)
+# Object files will be stored in the LIB_DIR
+OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(LIB_DIR)/%.o)
 
-$(LIB): $(OBJ)
-	ar rcs $(LIB) $(OBJ)
+# Colors for output
+GREEN   = \033[0;32m
+YELLOW  = \033[0;33m
+BLUE    = \033[0;34m
+RESET   = \033[0m
 
-$(NAME): $(LIB) $(SRC_DIR)/main.o
-	$(CC) $(CFLAGS) $(SRC_DIR)/main.o -L. -lrush02 -o $(NAME)
+# Emojis
+EMOJI_BUILD = 🛠️
+EMOJI_CLEAN = 🧹
+EMOJI_OK    = ✅
+EMOJI_ERROR = ❌
 
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.c includes/rush02.h
-	$(CC) $(CFLAGS) -c $< -o $@
+# **************************************************************************** #
+#                                   RULES                                      #
+# **************************************************************************** #
 
+# Default target
+all: $(LIB_DIR)/$(NAME)
+	@echo "$(GREEN)$(EMOJI_OK)  Build complete!$(RESET)"
+
+# Rule to create the library
+$(LIB_DIR)/$(NAME): $(OBJS)
+	@echo "$(BLUE)$(EMOJI_BUILD)  Creating $(NAME) library...$(RESET)"
+	@ar rcs $@ $^
+
+# Rule to compile object files
+$(LIB_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/libft.h
+	@mkdir -p $(LIB_DIR)
+	@echo "$(YELLOW)Compiling $<...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean object files
 clean:
-	rm -f $(OBJ)
+	@echo "$(YELLOW)$(EMOJI_CLEAN)  Cleaning object files...$(RESET)"
+	@rm -f $(OBJS)
 
+# Clean object files and the library
 fclean: clean
-	rm -f $(NAME) $(LIB)
+	@echo "$(YELLOW)$(EMOJI_CLEAN)  Removing $(NAME) library...$(RESET)"
+	@rm -f $(LIB_DIR)/$(NAME)
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
+# **************************************************************************** #
+#                                 END OF FILE                                  #
+# **************************************************************************** #
