@@ -124,22 +124,26 @@ int	main(void)
 	size_t	i = 0;
 	char	*result;
 
-	printf("Testing ft_itoa:\n\n");
+	printf("Testing ft_itoa:\n");
+	printf("---------------------------------------------------------------------------\n");
+	printf("%-5s | %-11s | %-13s | %-13s | %s | %s\n", "Test", "Input", "Expected", "Output", "Result", "Description");
+	printf("---------------------------------------------------------------------------\n");
 
 	// Iterate through the test cases
 	while (i < num_tests)
 	{
 		// Call ft_itoa with the current input
 		result = ft_itoa(tests[i].input);
-		printf("Test %2zu: Input = %d | Expected = \"%s\" | Result = \"%s\" | [",
-			i + 1, tests[i].input, tests[i].expected_output, result);
+		printf("%-5zu | %-11d | %-13s | %-13s | ", i + 1, tests[i].input, tests[i].expected_output, result);
 
 		// Determine PASS or FAIL
 		if (ft_strcmp(result, tests[i].expected_output) == 0)
 			printf("PASS");
 		else
 			printf("FAIL");
-		printf("] - %s\n", tests[i].description);
+
+		// Print description
+		printf("   | %s\n", tests[i].description);
 
 		// Free the result allocated by ft_itoa
 		free(result);

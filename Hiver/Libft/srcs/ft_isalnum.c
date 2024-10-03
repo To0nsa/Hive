@@ -58,9 +58,9 @@ int main(void)
 	int		result_std;
 	
 	printf("Testing ft_isalnum against standard isalnum:\n");
-	printf("------------------------------------------------------------\n");
-	printf("%-5s | %-10s | %-10s | %-10s | %s & %s\n", "Test", "Input", "ft_isalnum", "isalnum", "Result", "Description");
-	printf("------------------------------------------------------------\n");
+	printf("---------------------------------------------------------------------\n");
+	printf("%-5s | %-10s | %-10s | %-10s | %s | %s\n", "Test", "Input", "ft_isalnum", "isalnum", "Result", "Description");
+	printf("---------------------------------------------------------------------\n");
 	// Iterate through test cases using a while loop
 	while (i < num_tests)
 	{
@@ -84,7 +84,7 @@ int main(void)
 			printf("PASS");
 		else
 			printf("FAIL");
-		printf(" - %s\n", tests[i].description);
+		printf("   | %s\n", tests[i].description);
 		i++;
 	}
 	return (0);

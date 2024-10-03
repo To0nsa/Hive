@@ -95,36 +95,45 @@ int	main(void)
 	size_t	i = 0;
 	void	*result;
 
-	printf("Testing ft_memchr:\n");
+printf("Testing ft_memchr:\n");
+	printf("------------------------------------------------------------------------------------------------\n");
+	printf("%-5s | %-16s | %-6s | %-7s | %-12s | %-12s | %s | %s\n", "Test", "Buffer", "Char", "Count", "Expected", "Output", "Result", "Description");
+	printf("------------------------------------------------------------------------------------------------\n");
 
 	// Iterate through test cases
 	while (i < num_tests)
 	{
 		// Call ft_memchr with the current input
 		result = ft_memchr(tests[i].buffer, tests[i].char_to_find, tests[i].count);
-		printf("Test %2zu: Buffer = \"%s\", Char = '%c', Count = %zu | Expected = ",
-			i + 1,
-			tests[i].buffer,
-			tests[i].char_to_find,
-			tests[i].count);
+		printf("%-5zu | %-16s | ", i + 1, tests[i].buffer);
+
+		// Print character representation safely, including special characters like '\0'
+		if (tests[i].char_to_find == '\0')
+			printf("'\\0'   | ");
+		else
+			printf("'%c'    | ", tests[i].char_to_find);
+
+		printf("%-7zu | ", tests[i].count);
+
+		// Print expected result
 		if (tests[i].expected_result)
-			printf("\"%s\"", tests[i].expected_result);
+			printf("%-12s | ", tests[i].expected_result);
 		else
-			printf("NULL");
-		printf(" | Result = ");
+			printf("%-12s | ", "NULL");
 
+		// Print actual result
 		if (result)
-			printf("\"%s\"", (char *)result);
+			printf("%-12s | ", (char *)result);
 		else
-			printf("NULL");
+			printf("%-12s | ", "NULL");
 
-		// Check the result and determine PASS or FAIL
+		// Determine PASS or FAIL
 		if (result == NULL && tests[i].expected_result == NULL)
-			printf(" | [PASS] - %s\n", tests[i].description);
+			printf("PASS   | %s\n", tests[i].description);
 		else if (result != NULL && ft_strcmp(result, tests[i].expected_result) == 0)
-			printf(" | [PASS] - %s\n", tests[i].description);
+			printf("PASS   | %s\n", tests[i].description);
 		else
-			printf(" | [FAIL] - %s\n", tests[i].description);
+			printf("FAIL   | %s\n", tests[i].description);
 		i++;
 	}
 	return (0);

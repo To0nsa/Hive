@@ -58,30 +58,37 @@ int	main(void)
 	int		result_std;
 
 	printf("Testing ft_isascii against standard isascii:\n");
+	printf("---------------------------------------------------------------------\n");
+	printf("%-5s | %-10s | %-10s | %-10s | %s | %s\n", "Test", "Input", "ft_isascii", "isascii", "Result", "Description");
+	printf("---------------------------------------------------------------------\n");
+
 	// Iterate through test cases using a while loop
 	while (i < num_tests)
 	{
 		result_ft = ft_isascii(tests[i].input);
 		result_std = isascii(tests[i].input);
-		printf("Test %2zu: Input = ", i + 1);
+		printf("%-5zu | ", i + 1);
 
 		// Print character representation safely
 		if (tests[i].input >= 32 && tests[i].input <= 126)
-			printf("'%c'", tests[i].input);
+			printf("'%c'        | ", tests[i].input);
 		else if (tests[i].input == '\0')
-			printf("'\\0'");
+			printf("'\\0'       | ");
 		else if (tests[i].input == '\n')
-			printf("'\\n'");
+			printf("'\\n'       | ");
 		else
-			printf("%d", tests[i].input);
-		printf(" | ft_isascii: %d | isascii: %d | [", result_ft, result_std);
+			printf("%-10d | ", tests[i].input);
+
+		printf("%-10d | %-10d | ", result_ft, result_std);
 
 		// Determine PASS or FAIL
 		if ((result_ft != 0 && result_std != 0) || (result_ft == 0 && result_std == 0))
 			printf("PASS");
 		else
 			printf("FAIL");
-		printf("] - %s\n", tests[i].description);
+
+		// Print description
+		printf("   | %s\n", tests[i].description);
 		i++;
 	}
 	return (0);
