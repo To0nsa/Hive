@@ -51,3 +51,188 @@ void	*ft_calloc(size_t count, size_t size)
  overflow when calculating the total memory size (`count * size`).
  - The caller is responsible for freeing the allocated memory after use to avoid 
  memory leaks.*/
+
+//### Examples of usage:
+#include <stdio.h>		// For printf
+#include <stdint.h>		// For SIZE_MAX
+
+// Helper function to verify if memory is zeroed
+int	ft_is_memzeroed(void *ptr, size_t n)
+{
+	unsigned char	*byte_ptr = (unsigned char *)ptr;
+	size_t			i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (byte_ptr[i] != 0)
+			return (0);	// Not zeroed
+		i++;
+	}
+	return (1);	// All bytes are zeroed
+}
+
+// Helper function to print test results
+void	ft_print_test_result(const char *test_name, int passed)
+{
+	if (passed)
+		printf("[PASS] %s\n", test_name);
+	else
+		printf("[FAIL] %s\n", test_name);
+}
+
+int	main(void)
+{
+	// Test Case 1: Typical Allocation
+	{
+		size_t	count = 10;
+		size_t	size = sizeof(int);
+		int		*arr = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (arr != NULL && ft_is_memzeroed(arr, count * size))
+			passed = 1;
+		ft_print_test_result("Typical Allocation (10 integers)", passed);
+		free(arr);
+	}
+
+	// Test Case 2: Zero Allocation (count = 0)
+	{
+		size_t	count = 0;
+		size_t	size = sizeof(int);
+		int		*arr = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (arr == NULL || ft_is_memzeroed(arr, 0))
+			passed = 1;
+		ft_print_test_result("Zero Allocation (count = 0)", passed);
+		free(arr);	// Safe to call free on NULL in C
+	}
+
+	// Test Case 3: Zero Allocation (size = 0)
+	{
+		size_t	count = 10;
+		size_t	size = 0;
+		int		*arr = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (arr == NULL || ft_is_memzeroed(arr, 0))
+			passed = 1;
+		ft_print_test_result("Zero Allocation (size = 0)", passed);
+		free(arr);	// Safe to call free on NULL in C
+	}
+
+	// Test Case 4: Both count and size are zero
+	{
+		size_t	count = 0;
+		size_t	size = 0;
+		int		*arr = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (arr == NULL || ft_is_memzeroed(arr, 0))
+			passed = 1;
+		ft_print_test_result("Zero Allocation (count = 0, size = 0)", passed);
+		free(arr);	// Safe to call free on NULL in C
+	}
+
+	// Test Case 5: Overflow Detection
+	{
+		size_t	count = SIZE_MAX;
+		size_t	size = 2;
+		void	*ptr = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (ptr == NULL)
+			passed = 1;
+		ft_print_test_result("Overflow Detection (SIZE_MAX * 2)", passed);
+		free(ptr);
+	}
+
+	// Test Case 6: Large Allocation (may vary based on system)
+	{
+		size_t	count = 1000000;
+		size_t	size = sizeof(int);
+		int		*arr = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (arr != NULL && ft_is_memzeroed(arr, count * size))
+			passed = 1;
+		ft_print_test_result("Large Allocation (1,000,000 integers)", passed);
+		free(arr);
+	}
+
+	// Test Case 7: Allocation of Structs
+	{
+		typedef struct	s_point
+		{
+			int	x;
+			int	y;
+		}				t_point;
+
+		size_t	count = 5;
+		size_t	size = sizeof(t_point);
+		t_point	*points = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (points != NULL && ft_is_memzeroed(points, count * size))
+			passed = 1;
+		ft_print_test_result("Allocation of Structs (5 points)", passed);
+		free(points);
+	}
+
+	// Test Case 8: Multiple Allocations in a Loop
+	{
+		size_t	i;
+		size_t	loops = 1000;
+		int		*arr;
+		int		passed = 1;
+
+		for (i = 0; i < loops; i++)
+		{
+			arr = ft_calloc(100, sizeof(int));
+			if (arr == NULL || !ft_is_memzeroed(arr, 100 * sizeof(int)))
+			{
+				passed = 0;
+				break;
+			}
+			free(arr);
+		}
+		ft_print_test_result("Multiple Allocations in a Loop (1000 iterations)", passed);
+	}
+
+	// Test Case 9: Allocation of Different Data Types
+	{
+		typedef struct	s_data
+		{
+			double	a;
+			char	b;
+			long	c;
+		}				t_data;
+
+		size_t	count = 3;
+		size_t	size = sizeof(t_data);
+		t_data	*data = ft_calloc(count, size);
+		int		passed = 0;
+
+		if (data != NULL && ft_is_memzeroed(data, count * size))
+			passed = 1;
+		ft_print_test_result("Allocation of Different Data Types (3 data structs)", passed);
+		free(data);
+	}
+
+	// Test Case 10: Allocation with Maximum Size that Doesn't Overflow
+	{
+		size_t	count = SIZE_MAX / 2;
+		size_t	size = 2;
+		void	*ptr = ft_calloc(count, size);
+		int		passed = 0;
+
+		// This may or may not fail depending on system memory
+		if (ptr == NULL || ft_is_memzeroed(ptr, count * size))
+			passed = 1;
+		ft_print_test_result("Maximum Allocation without Overflow (SIZE_MAX/2 * 2)", passed);
+		free(ptr);
+	}
+
+	return (0);
+}

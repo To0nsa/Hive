@@ -29,37 +29,6 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-#include <stdio.h>
-int	main(void)
-{
-	const char *test_cases[] = {
-		"42",          // Simple positive number
-		"-42",         // Simple negative number
-		"   123",      // Leading spaces
-		"   -123",     // Leading spaces with negative sign
-		"+123",        // Positive sign
-		"0",           // Zero
-		"-0",          // Negative zero
-		"2147483647",  // Maximum int
-		"-2147483648", // Minimum int
-		"   +000123",  // Leading zeros and spaces
-		"123abc",      // Invalid characters after number
-		"abc123",      // Invalid characters before number
-		"   +   123",  // Invalid characters in between
-		"",            // Empty string
-		"++++123",     // Multiple signs
-		NULL           // End of test cases
-	};
-	int i = 0;
-
-	while (test_cases[i])
-	{
-		printf("Input: '%s' => Output: %d\n", test_cases[i], ft_atoi(test_cases[i]));
-		i++;
-	}
-	return (0);
-}
-
 /*## Function: ft_atoi
 ### Prototype:
  `int	ft_atoi(const char *str)`
@@ -90,3 +59,35 @@ int	main(void)
  - The function assumes that the input is a null-terminated string.
  - It does not handle overflow/underflow conditions.
  - If the input string doesn't contain any valid numbers, the function returns `0`.*/
+
+// ### Examples of usage:
+#include <stdio.h>
+int	main(void)
+{
+	const char *test_cases[] = {
+		"42",			// Simple positive number
+		"-42",			// Simple negative number
+		"   123",		// Leading spaces
+		"   -123",		// Leading spaces with negative sign
+		"+123",			// Positive sign
+		"0",			// Zero
+		"-0",			// Negative zero
+		"2147483647",	// Maximum int
+		"-2147483648",	// Minimum int
+		"   +000123",	// Leading zeros and spaces
+		"123abc",		// Invalid characters after number
+		"abc123",		// Invalid characters before number
+		"   +   123",	// Invalid characters in between
+		"",				// Empty string
+		"++++123",		// Multiple signs
+		NULL			// End of test cases
+	};
+	int i = 0;
+
+	while (test_cases[i])
+	{
+		printf("Input:'%11s' -> Output: %d\n", test_cases[i], ft_atoi(test_cases[i]));
+		i++;
+	}
+	return (0);
+}

@@ -73,3 +73,77 @@ char	*ft_itoa(int n)
  leaks.
  - If `n` is `0`, the function returns `"0"`.
  - The function handles the edge case for the minimum value of an integer (`INT_MIN`).*/
+
+// ### Examples of usage:
+#include <stdio.h>
+#include <limits.h>
+
+
+// Structure to hold individual test cases
+typedef struct	s_test_case
+{
+	int			input;
+	const char	*expected_output;
+	const char	*description;
+}				t_test_case;
+
+static int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t			i;
+	unsigned char	uc1;
+	unsigned char	uc2;
+
+	i = 0;
+	while (s1[i] != '\0' || s2[i] != '\0')
+	{
+		uc1 = (unsigned char)s1[i];
+		uc2 = (unsigned char)s2[i];
+		if (uc1 != uc2)
+			return (uc1 - uc2);
+		i++;
+	}
+	return (0);
+}
+
+int	main(void)
+{
+	// Define test cases for ft_itoa
+	t_test_case tests[] = {
+		{ 0, "0", "Zero" },
+		{ 1, "1", "Positive Single Digit (1)" },
+		{ -1, "-1", "Negative Single Digit (-1)" },
+		{ 12345, "12345", "Positive Number (12345)" },
+		{ -12345, "-12345", "Negative Number (-12345)" },
+		{ INT_MAX, "2147483647", "INT_MAX" },
+		{ INT_MIN, "-2147483648", "INT_MIN" },
+		{ 100000, "100000", "Large Positive Number (100000)" },
+		{ -999999, "-999999", "Large Negative Number (-999999)" },
+	};
+
+	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
+	size_t	i = 0;
+	char	*result;
+
+	printf("Testing ft_itoa:\n\n");
+
+	// Iterate through the test cases
+	while (i < num_tests)
+	{
+		// Call ft_itoa with the current input
+		result = ft_itoa(tests[i].input);
+		printf("Test %2zu: Input = %d | Expected = \"%s\" | Result = \"%s\" | [",
+			i + 1, tests[i].input, tests[i].expected_output, result);
+
+		// Determine PASS or FAIL
+		if (ft_strcmp(result, tests[i].expected_output) == 0)
+			printf("PASS");
+		else
+			printf("FAIL");
+		printf("] - %s\n", tests[i].description);
+
+		// Free the result allocated by ft_itoa
+		free(result);
+		i++;
+	}
+	return (0);
+}

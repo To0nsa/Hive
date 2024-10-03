@@ -51,3 +51,69 @@ int	ft_memcmp(const void *buf1, const void *buf2, size_t count)
  than `count` bytes have been checked.
  - The memory areas `buf1` and `buf2` are treated as sequences of `unsigned char` 
  to ensure correct comparison for all byte values.*/
+
+// ### Examples of usage:
+#include <stdio.h>
+#include <string.h>
+
+// Prototype of ft_memcmp (Assumed to be declared in libft.h)
+int	ft_memcmp(const void *buf1, const void *buf2, size_t count);
+
+// Structure to hold individual test cases
+typedef struct s_test_case
+{
+	const char *buf1;
+	const char *buf2;
+	size_t		count;
+	int			expected_result;
+	const char	*description;
+}				t_test_case;
+
+int	main(void)
+{
+	// Define test cases for ft_memcmp
+	t_test_case tests[] = {
+		{ "abcdef", "abcdef", 6, 0, "Identical buffers" },
+		{ "abcdef", "abcdez", 5, 0, "Identical for the first 5 bytes" },
+		{ "abcdef", "abcdez", 6, -1, "Different buffers, diff at 6th byte" },
+		{ "abcdef", "abcdeZ", 6, 1, "Buffers differ in the case of last byte" },
+		{ "abc", "abc", 0, 0, "Zero-length comparison" },
+		{ "abc", "xyz", 3, -23, "Completely different buffers" },
+		{ "", "", 0, 0, "Empty buffers" },
+		{ "abc", "aBc", 3, 32, "Case-sensitive comparison" },
+		{ "abc", "abc", 2, 0, "Identical first 2 bytes, extra ignored" },
+	};
+
+	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
+	size_t	i = 0;
+	int		result;
+
+	printf("Testing ft_memcmp:\n\n");
+
+	// Iterate through test cases
+	while (i < num_tests)
+	{
+		// Call ft_memcmp with the current input
+		result = ft_memcmp(tests[i].buf1, tests[i].buf2, tests[i].count);
+
+		printf("Test %2zu: Buf1 = \"%s\", Buf2 = \"%s\", Count = %zu | Expected = %d | Result = %d | ",
+			i + 1,
+			tests[i].buf1,
+			tests[i].buf2,
+			tests[i].count,
+			tests[i].expected_result,
+			result);
+
+		// Check if the result matches the expected output
+		if ((result == 0 && tests[i].expected_result == 0) || 
+			(result < 0 && tests[i].expected_result < 0) || 
+			(result > 0 && tests[i].expected_result > 0))
+		{
+			printf("[PASS] - %s\n", tests[i].description);
+		}
+		else
+			printf("[FAIL] - %s\n", tests[i].description);
+		i++;
+	}
+	return (0);
+}

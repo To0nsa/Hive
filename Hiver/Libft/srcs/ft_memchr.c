@@ -46,3 +46,86 @@ void	*ft_memchr(const void *buf, int c, size_t count)
 ### Important notes:
  - The value `c` is converted to `unsigned char` for comparison, ensuring that 
  all possible byte values are handled correctly.*/
+
+// ### Examples of usage:
+#include <stdio.h>
+
+// Structure to hold individual test cases
+typedef struct	s_test_case
+{
+	const char 	*buffer;
+	int			char_to_find;
+	size_t		count;
+	const char	*expected_result;
+	const char	*description;
+}				t_test_case;
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t			i;
+	unsigned char	uc1;
+	unsigned char	uc2;
+
+	i = 0;
+	while (s1[i] != '\0' || s2[i] != '\0')
+	{
+		uc1 = (unsigned char)s1[i];
+		uc2 = (unsigned char)s2[i];
+		if (uc1 != uc2)
+			return (uc1 - uc2);
+		i++;
+	}
+	return (0);
+}
+
+int	main(void)
+{
+	t_test_case tests[] = {
+		{ "hello world", 'o', 11, "o world", "Character in the middle of the string ('o')" },
+		{ "hello world", 'h', 11, "hello world", "Character at the start of the string ('h')" },
+		{ "hello world", 'd', 11, "d", "Character at the end of the string ('d')" },
+		{ "hello world", 'x', 11, NULL, "Character not present in the string ('x')" },
+		{ "hello\0world", '\0', 11, "\0world", "Null terminator ('\\0')" },
+		{ "", 'a', 0, NULL, "Empty string" },
+		{ "abcdef", 'f', 3, NULL, "Character present but outside count range" },
+		{ "abcdef", 'a', 1, "abcdef", "Character found within count range" },
+	};
+
+	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
+	size_t	i = 0;
+	void	*result;
+
+	printf("Testing ft_memchr:\n");
+
+	// Iterate through test cases
+	while (i < num_tests)
+	{
+		// Call ft_memchr with the current input
+		result = ft_memchr(tests[i].buffer, tests[i].char_to_find, tests[i].count);
+		printf("Test %2zu: Buffer = \"%s\", Char = '%c', Count = %zu | Expected = ",
+			i + 1,
+			tests[i].buffer,
+			tests[i].char_to_find,
+			tests[i].count);
+		if (tests[i].expected_result)
+			printf("\"%s\"", tests[i].expected_result);
+		else
+			printf("NULL");
+		printf(" | Result = ");
+
+		if (result)
+			printf("\"%s\"", (char *)result);
+		else
+			printf("NULL");
+
+		// Check the result and determine PASS or FAIL
+		if (result == NULL && tests[i].expected_result == NULL)
+			printf(" | [PASS] - %s\n", tests[i].description);
+		else if (result != NULL && ft_strcmp(result, tests[i].expected_result) == 0)
+			printf(" | [PASS] - %s\n", tests[i].description);
+		else
+			printf(" | [FAIL] - %s\n", tests[i].description);
+		i++;
+	}
+	return (0);
+}
