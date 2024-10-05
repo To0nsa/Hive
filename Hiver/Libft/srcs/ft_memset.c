@@ -44,3 +44,67 @@ void	*ft_memset(void *dest, int c, size_t count)
 ### Important notes:
  - The value `c` is internally treated as an unsigned char, so any integer 
  passed will be converted to an 8-bit value.*/
+
+ // ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_memset.c -L lib -lft -o test/test_ft_memset
+
+// ### Examples of usage:
+#include <stdio.h>
+
+// Prototype of ft_memset
+void	*ft_memset(void *dest, int c, size_t count);
+
+// Prototype of helper functions
+int		ft_memcmp(const void *buf1, const void *buf2, size_t count);
+
+// Structure to hold individual test cases
+typedef struct 	s_test_case
+{
+	int			c;
+	size_t		count;
+	const char	*expected_result;
+	const char	*description;
+}				t_test_case;
+
+int	main(void)
+{
+	char	dest[100];	// Buffer for the destination of ft_memset
+	t_test_case tests[] = {
+		{ 'a', 6, "aaaaaa", "Fill buffer with 'a'" },
+		{ 'b', 3, "bbb", "Fill part of buffer with 'b'" },
+		{ '\0', 5, "\0\0\0\0\0", "Fill with null bytes" },
+		{ 'X', 10, "XXXXXXXXXX", "Fill buffer with 'X'" },
+		{ 'z', 1, "z", "Fill single byte with 'z'" },
+		{ 'A', 0, "", "Fill zero bytes" }
+	};
+
+	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
+	size_t	i = 0;
+	char	*result;
+
+	// Header
+	printf("Testing ft_memset:\n");
+	printf("------------------------------------------------------------------------------------------------\n");
+	printf("%-5s | %-9s | %-7s | %-14s | %-14s | %s | %s\n", "Test", "Char", "Count", "Expected", "Output", "Result", "Description");
+	printf("------------------------------------------------------------------------------------------------\n");
+
+	// Iterate through test cases
+	while (i < num_tests)
+	{
+		// Clear the destination buffer for each test
+		ft_memset(dest, 0, sizeof(dest));
+
+		// Call ft_memset with the current input
+		result = ft_memset(dest, tests[i].c, tests[i].count);
+		printf("%-5zu | '%c'      | %-7zu | %-14s | %-14s | ", i + 1, tests[i].c, tests[i].count, tests[i].expected_result, dest);
+
+		// Determine PASS or FAIL using ft_memcmp
+		if (ft_memcmp(result, tests[i].expected_result, tests[i].count) == 0)
+			printf("PASS   | %s\n", tests[i].description);
+		else
+			printf("FAIL   | %s\n", tests[i].description);
+		i++;
+	}
+	printf("------------------------------------------------------------------------------------------------\n");
+	return (0);
+}

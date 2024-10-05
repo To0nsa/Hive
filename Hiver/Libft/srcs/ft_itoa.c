@@ -74,6 +74,9 @@ char	*ft_itoa(int n)
  - If `n` is `0`, the function returns `"0"`.
  - The function handles the edge case for the minimum value of an integer (`INT_MIN`).*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_itoa.c -L lib -lft -o test/test_ft_itoa
+
 // ### Examples of usage:
 #include <stdio.h>
 #include <limits.h>
@@ -149,5 +152,6 @@ int	main(void)
 		free(result);
 		i++;
 	}
+	printf("---------------------------------------------------------------------------\n");
 	return (0);
 }

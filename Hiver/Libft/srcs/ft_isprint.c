@@ -25,6 +25,9 @@ int	ft_isprint(int c)
  range (32 to 126). Non-printable characters, such as control characters 
  (ASCII 0 to 31), and extended characters (above 126) will return false.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_isprint.c -L lib -lft -o test/test_ft_isprint
+
 // ### Examples of usage:
 #include <libft.h>		// For size_t
 #include <ctype.h>		// For the standard isprint function
@@ -94,5 +97,6 @@ int	main(void)
 		printf("   | %s\n", tests[i].description);
 		i++;
 	}
+	printf("---------------------------------------------------------------------\n");
 	return (0);
 }

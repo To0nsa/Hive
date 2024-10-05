@@ -18,6 +18,9 @@ int	ft_isdigit(int c)
  the function returns a non-zero value (true).
  - Zero: If `c` is not a digit, the function returns 0.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_isdigit.c -L lib -lft -o test/test_ft_isdigit
+
 // ###Examples of usage:
 #include <libft.h>		// For size_t
 #include <ctype.h>		// For the standard isdigit function
@@ -86,5 +89,6 @@ int	main(void)
 		printf("   | %s\n", tests[i].description);
 		i++;
 	}
+	printf("---------------------------------------------------------------------\n");
 	return (0);
 }

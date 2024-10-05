@@ -40,3 +40,30 @@ void	ft_putstr_fd(char *s, int fd)
  writing. If `fd` is invalid, the `write` system call will fail, but this 
  function does not handle such errors internally.
 - The function will do nothing if `s` is `NULL`, ensuring safe execution.*/
+
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_putstr_fd.c -L lib -lft -o test/test_ft_putstr_fd
+
+// ### Examples of usage:
+#include <libft.h>
+
+// Prototype of ft_putstr_fd
+void	ft_putstr_fd(char *s, int fd);
+
+int	main(void)
+{
+	ft_putstr_fd("Testing ft_putstr_fd (writing to stdout):\n", 1);
+	ft_putstr_fd("Test 1: Print a regular string\n", 1);
+	ft_putstr_fd("Hello, world!\n", 1);
+	ft_putstr_fd("Test 2: Print an empty string\n", 1);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("Test 3: Print a string with special characters\n", 1);
+	ft_putstr_fd("~!@#$%^&*()_+\n", 1);
+	ft_putstr_fd("Test 4: Print a numeric string\n", 1);
+	ft_putstr_fd("1234567890\n", 1);
+	ft_putstr_fd("Test 5: Print a string with multiple newlines\n", 1);
+	ft_putstr_fd("Line1\nLine2\nLine3\n", 1);
+	ft_putstr_fd("Test 6: Print a NULL string\n", 1);
+	ft_putstr_fd(NULL, 1);
+	return (0);
+}

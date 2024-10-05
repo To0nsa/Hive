@@ -58,3 +58,59 @@ char	*ft_strdup(const char *src)
 ### Important notes:
  - The caller is responsible for freeing the allocated memory for the duplicate 
  string to avoid memory leaks.*/
+
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_strdup.c -L lib -lft -o test/test_ft_strdup
+
+// ### Examples of usage:
+#include <libft.h>
+#include <stdio.h>
+
+// Prototype of ft_strdup
+char	*ft_strdup(const char *src);
+
+// Function to print the result of ft_strdup and compare with the original
+void	print_strdup_result(int test_number, const char *src, char *result)
+{
+	printf("\033[4mTest %d:\033[0m Duplicating \"%s\"\n", test_number, src);
+
+	if (result != NULL)
+		printf("        Duplicate: \"%s\"\n", result);
+	else
+		printf("        Duplicate: NULL (Memory allocation failed)\n");
+
+	printf("\n");
+}
+
+int	main(void)
+{
+	char *result;
+
+	printf("\n\033[4mTesting ft_strdup :\033[0m\n\n");
+
+	// Test 1: Duplicating a normal string
+	result = ft_strdup("Hello, world!");
+	print_strdup_result(1, "Hello, world!", result);
+	free(result);
+
+	// Test 2: Duplicating an empty string
+	result = ft_strdup("");
+	print_strdup_result(2, "", result);
+	free(result);
+
+	// Test 3: Duplicating a string with special characters
+	result = ft_strdup("~!@#$%^&*()_+");
+	print_strdup_result(3, "~!@#$%^&*()_+", result);
+	free(result);
+
+	// Test 4: Duplicating a numeric string
+	result = ft_strdup("1234567890");
+	print_strdup_result(4, "1234567890", result);
+	free(result);
+
+	// Test 5: Passing NULL to ft_strdup (should return NULL)
+	result = ft_strdup(NULL);
+	print_strdup_result(5, "(NULL input)", result);
+
+	return (0);
+}

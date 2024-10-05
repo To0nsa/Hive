@@ -44,6 +44,9 @@ void	ft_bzero(void *s, size_t n)
  - This function is equivalent to `ft_memset(s, 0, n)` but is specialized for 
  setting memory to zero.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_bzero.c -L lib -lft -o test/test_ft_bzero
+
 //### Examples of usage:
 static char	*ft_strcpy(char *dest, const char *src)
 {

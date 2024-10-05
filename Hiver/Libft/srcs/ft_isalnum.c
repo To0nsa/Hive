@@ -27,6 +27,9 @@ int	ft_isalnum(int c)
  - This function assumes that the input is representable as an `unsigned char` or is `EOF`.
  Passing a value outside this range may lead to undefined behavior.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_isalnum.c -L lib -lft -o test/test_ft_isalnum
+
 //### Examples of usage:
 #include <ctype.h>		// For the standard isalnum function
 #include <stdio.h>		// For printf
@@ -87,5 +90,6 @@ int main(void)
 		printf("   | %s\n", tests[i].description);
 		i++;
 	}
+	printf("---------------------------------------------------------------------\n");
 	return (0);
 }

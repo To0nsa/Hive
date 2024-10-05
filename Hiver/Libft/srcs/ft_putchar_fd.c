@@ -31,3 +31,37 @@ void	ft_putchar_fd(char c, int fd)
  - The caller must ensure that the file descriptor `fd` is valid and open for 
  writing. If `fd` is invalid, the `write` system call will fail, but this 
  function does not handle such errors internally.*/
+
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_putchar_fd.c -L lib -lft -o test/test_putchar_fd
+
+// ### Examples of usage:
+#include <libft.h>
+
+// Prototype of ft_putchar_fd
+void	ft_putchar_fd(char c, int fd);
+
+// Prototype of helper functions
+void	ft_putstr_fd(char *s, int fd);
+
+int	main(void)
+{
+	// Basic tests to print characters to stdout (fd 1)
+	ft_putstr_fd("Testing ft_putchar_fd (writing to stdout):\n", 1);
+
+	// Test 1: Printing a regular character 'A'
+	ft_putstr_fd("Test 1 -> Expected output: A - output -> ", 1);
+	ft_putchar_fd('A', 1);
+	ft_putchar_fd('\n', 1);
+
+	// Test 2: Printing a digit character '5'
+	ft_putstr_fd("Test 2 -> Expected output: 5 - output -> ", 1);
+	ft_putchar_fd('5', 1);
+	ft_putchar_fd('\n', 1);
+
+	// Test 3: Printing a special character '@'
+	ft_putstr_fd("Test 3 -> Expected output: @ - output -> ", 1);
+	ft_putchar_fd('@', 1);
+	ft_putchar_fd('\n', 1);
+	return (0);
+}

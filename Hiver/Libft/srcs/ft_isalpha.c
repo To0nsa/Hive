@@ -25,6 +25,9 @@ int	ft_isalpha(int c)
  - This function does not account for any locale-specific alphabetic characters
  (e.g., accented letters). It only works for standard ASCII alphabetic characters. */
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_isalpha.c -L lib -lft -o test/test_ft_isalpha
+
 // ###Examples of usage:
 #include <libft.h>		// For size_t
 #include <ctype.h>		// For the standard isalpha function
@@ -89,5 +92,6 @@ int main(void)
 		printf("   | %s\n", tests[i].description);
 		i++;
 	}
+	printf("---------------------------------------------------------------------\n");
 	return (0);
 }

@@ -24,6 +24,9 @@ int	ft_isascii(int c)
  - The function specifically checks for the ASCII range (0–127). Characters outside
  this range (such as extended ASCII or Unicode characters) will return false.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_isascii.c -L lib -lft -o test/test_ft_isascii
+
 // ### Examples of usage:
 #include <libft.h>     // For size_t
 #include <ctype.h>     // For the standard isascii function
@@ -91,5 +94,6 @@ int	main(void)
 		printf("   | %s\n", tests[i].description);
 		i++;
 	}
+	printf("---------------------------------------------------------------------\n");
 	return (0);
 }

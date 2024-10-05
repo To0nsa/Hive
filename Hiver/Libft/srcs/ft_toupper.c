@@ -8,7 +8,7 @@ int	ft_toupper(int c)
 
 /*## Function: `ft_toupper`
 
- The `ft_toupper` function converts an lowercase alphabetic character to
+ The `ft_toupper` function converts a lowercase alphabetic character to
  its corresponding uppercase equivalent. If the input character `c` is an
  lowercase letter (`'a'` to `'z'`), it is converted to the corresponding uppercase
  letter. If `c` is not an lowercase letter, it is returned unchanged. 

@@ -60,6 +60,9 @@ int	ft_atoi(const char *str)
  - It does not handle overflow/underflow conditions.
  - If the input string doesn't contain any valid numbers, the function returns `0`.*/
 
+// ### Compile : 
+// cc -Wall -Wextra -Werror -I include srcs/ft_atoi.c -L lib -lft -o test/test_ft_atoi
+
 // ### Examples of usage:
 #include <stdio.h>
 int	main(void)

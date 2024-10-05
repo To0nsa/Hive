@@ -52,6 +52,9 @@ void	*ft_calloc(size_t count, size_t size)
  - The caller is responsible for freeing the allocated memory after use to avoid 
  memory leaks.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_calloc.c -L lib -lft -o test/test_ft_calloc
+
 //### Examples of usage:
 #include <stdio.h>		// For printf
 #include <stdint.h>		// For SIZE_MAX

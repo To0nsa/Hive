@@ -52,11 +52,13 @@ int	ft_memcmp(const void *buf1, const void *buf2, size_t count)
  - The memory areas `buf1` and `buf2` are treated as sequences of `unsigned char` 
  to ensure correct comparison for all byte values.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_memcmp.c -L lib -lft -o test/test_ft_memcmp
+
 // ### Examples of usage:
 #include <stdio.h>
-#include <string.h>
 
-// Prototype of ft_memcmp (Assumed to be declared in libft.h)
+// Prototype of ft_memcmp:
 int	ft_memcmp(const void *buf1, const void *buf2, size_t count);
 
 // Structure to hold individual test cases
@@ -88,32 +90,27 @@ int	main(void)
 	size_t	i = 0;
 	int		result;
 
-	printf("Testing ft_memcmp:\n\n");
+	printf("Testing ft_memcmp:\n");
+	printf("------------------------------------------------------------------------------------------------\n");
+	printf("%-5s | %-10s | %-10s | %-7s | %-10s | %-8s | %s | %s\n", "Test", "Buffer 1", "Buffer 2", "Count", "Expected", "Output", "Result", "Description");
+	printf("------------------------------------------------------------------------------------------------\n");
 
 	// Iterate through test cases
 	while (i < num_tests)
 	{
 		// Call ft_memcmp with the current input
 		result = ft_memcmp(tests[i].buf1, tests[i].buf2, tests[i].count);
+		printf("%-5zu | %-10s | %-10s | %-7zu | %-10d | %-8d | ", i + 1, tests[i].buf1, tests[i].buf2, tests[i].count, tests[i].expected_result, result);
 
-		printf("Test %2zu: Buf1 = \"%s\", Buf2 = \"%s\", Count = %zu | Expected = %d | Result = %d | ",
-			i + 1,
-			tests[i].buf1,
-			tests[i].buf2,
-			tests[i].count,
-			tests[i].expected_result,
-			result);
-
-		// Check if the result matches the expected output
+		// Determine PASS or FAIL
 		if ((result == 0 && tests[i].expected_result == 0) || 
 			(result < 0 && tests[i].expected_result < 0) || 
 			(result > 0 && tests[i].expected_result > 0))
-		{
-			printf("[PASS] - %s\n", tests[i].description);
-		}
+			printf("PASS   | %s\n", tests[i].description);
 		else
-			printf("[FAIL] - %s\n", tests[i].description);
+			printf("FAIL   | %s\n", tests[i].description);
 		i++;
 	}
+	printf("------------------------------------------------------------------------------------------------\n");
 	return (0);
 }

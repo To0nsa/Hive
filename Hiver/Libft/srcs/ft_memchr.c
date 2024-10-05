@@ -47,6 +47,9 @@ void	*ft_memchr(const void *buf, int c, size_t count)
  - The value `c` is converted to `unsigned char` for comparison, ensuring that 
  all possible byte values are handled correctly.*/
 
+// ### Compile:
+// cc -Wall -Wextra -Werror -I include srcs/ft_memchr.c -L lib -lft -o test/test_ft_memchr
+
 // ### Examples of usage:
 #include <stdio.h>
 
@@ -95,7 +98,7 @@ int	main(void)
 	size_t	i = 0;
 	void	*result;
 
-printf("Testing ft_memchr:\n");
+	printf("Testing ft_memchr:\n");
 	printf("------------------------------------------------------------------------------------------------\n");
 	printf("%-5s | %-16s | %-6s | %-7s | %-12s | %-12s | %s | %s\n", "Test", "Buffer", "Char", "Count", "Expected", "Output", "Result", "Description");
 	printf("------------------------------------------------------------------------------------------------\n");
@@ -136,5 +139,6 @@ printf("Testing ft_memchr:\n");
 			printf("FAIL   | %s\n", tests[i].description);
 		i++;
 	}
+	printf("------------------------------------------------------------------------------------------------\n");
 	return (0);
 }
