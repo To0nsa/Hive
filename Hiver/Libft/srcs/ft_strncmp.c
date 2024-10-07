@@ -47,3 +47,79 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
  - If a difference is found between the characters, the function returns the
  difference between the first two differing characters.
  - If the strings are equal for the first `n` characters, the function returns `0`.*/
+
+// Compile with:
+// cc -Wall -Wextra -Werror -I include srcs/ft_strncmp.c -L lib -lft -o test/test_ft_strncmp
+
+// ### Examples of usage
+#include <libft.h>  // Ensure your libft header is included
+#include <stdio.h>
+
+// Prototype of ft_strncmp
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
+// Struct to hold test case information
+typedef struct	s_test_case
+{
+	const char	*s1;
+	const char	*s2;
+	size_t		n;
+	int			expected_result;
+	const char	*description;
+}				t_test_case;
+
+int	main(void)
+{
+	// Define test cases using the struct
+	t_test_case tests[] = {
+		{"Hello", "Hello", 5, 0, "Identical strings with full length"},
+		{"Hello", "HelloWorld", 5, 0, "Identical strings up to length n"},
+		{"Hello", "HelloWorld", 10, -1, "First string shorter than second string"},
+		{"Hello", "Hellz", 5, -1, "Strings differ at the last character"},
+		{"Hello", "Hella", 4, 0, "Strings identical up to length n"},
+		{"Hello", "hello", 5, -32, "Case-sensitive comparison"},
+		{"Hello", "", 5, 'H', "Comparison with an empty string"},
+		{"", "", 1, 0, "Both strings are empty"},
+		{"Hello", "Hellz", 3, 0, "Identical up to n but different afterward"},
+		{"1234", "1235", 4, -1, "Numeric characters comparison"},
+		{"\n\t", "\n\t", 2, 0, "Non-printable characters comparison"},
+		{"Hello", "Hellp", 6, -1, "Different at the fifth character"},
+		{"abcd", "abcd", 0, 0, "Zero-length comparison"},
+	};
+	int	num_tests = 13;
+	int	i = 0;
+
+	printf("\n\033[4mTesting ft_strncmp :\033[0m\n\n");
+
+	// Iterate through test cases using a while loop
+	while (i < num_tests)
+	{
+		int	result;
+
+		// Call ft_strncmp with the current input
+		result = ft_strncmp(tests[i].s1, tests[i].s2, tests[i].n);
+
+		// Print test case information
+		printf("\033[4mTest %d:\033[0m\n", i + 1);
+		printf("String 1: \"%s\"\n", tests[i].s1);
+		printf("String 2: \"%s\"\n", tests[i].s2);
+		printf("Length n: %zu\n", tests[i].n);
+		printf("Expected Result: %d\n", tests[i].expected_result);
+		printf("Actual Result: %d\n", result);
+
+		// Check if the result matches the expected value
+		if ((result == 0 && tests[i].expected_result == 0) ||
+			(result < 0 && tests[i].expected_result < 0) ||
+			(result > 0 && tests[i].expected_result > 0))
+		{
+			printf("Result: \033[32mPASS\033[0m - %s\n", tests[i].description);
+		}
+		else
+		{
+			printf("Result: \033[31mFAIL\033[0m - %s\n", tests[i].description);
+		}
+		printf("---------------------------\n");
+		i++;
+	}
+	return 0;
+}

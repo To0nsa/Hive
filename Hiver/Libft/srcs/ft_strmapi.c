@@ -54,3 +54,94 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 ### Important notes:
  - The caller is responsible for freeing the allocated memory for the new string.
  - If `s` or `f` is `NULL`, the function returns `NULL`.*/
+
+// Compile with:
+// cc -Wall -Wextra -Werror -I include srcs/ft_strmapi.c -L lib -lft -o test/test_ft_strmapi
+
+// Examples of usage
+#include <libft.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// Prototype of ft_strmapi
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+
+// Example functions to use with ft_strmapi
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
+// Example functions to use with ft_strmapi
+char	to_upper(unsigned int index, char c)
+{
+	(void)index; // Unused parameter
+	if (c >= 'a' && c <= 'z')
+		return (c - ('a' - 'A'));
+	return (c);
+}
+
+char	increment_char(unsigned int index, char c)
+{
+	(void)index; // Unused parameter
+	return (c + 1);
+}
+
+char	shift_by_index(unsigned int index, char c)
+{
+	return (c + index);
+}
+
+// Struct to hold the test case information
+typedef struct	s_test_case
+{
+	const char	*input;
+	char		(*func)(unsigned int, char);
+	const char	*expected_result;
+	const char	*description;
+}				t_test_case;
+
+int	main(void)
+{
+	// Define test cases using the struct
+	t_test_case tests[] = {
+		{"hello world", to_upper, "HELLO WORLD", "Convert all letters to uppercase"},
+		{"abcdef", increment_char, "bcdefg", "Increment each character"},
+		{"abcd", shift_by_index, "aceg", "Shift each character by its index"},
+		{"1234", increment_char, "2345", "Increment numeric characters"},
+		{"", to_upper, "", "Empty string test"},
+		{"\n\t", increment_char, "\v\n", "Non-printable characters"},  // Corrected expected result
+		{"Zz", shift_by_index, "Z{", "Shift by index on mixed case"}
+	};
+	int	num_tests = 7;
+	int	i = 0;
+
+	// Iterate through test cases using a while loop
+	while (i < num_tests)
+	{
+		char	*result;
+
+		// Call ft_strmapi with the current input and function
+		result = ft_strmapi(tests[i].input, tests[i].func);
+
+		printf("\n\033[4mTesting ft_strmapi :\033[0m\n\n");
+
+		// Print test case information
+		printf("\033[4mTest %d:\033[0m\n", i + 1);
+		printf("Input: \"%s\"\n", tests[i].input);
+		printf("Expected Result: \"%s\"\n", tests[i].expected_result);
+		printf("Actual Result: \"%s\"\n", result ? result : "NULL");
+
+		// Check if the result matches the expected value using ft_strncmp
+		if (result && tests[i].expected_result && 
+			ft_strncmp(result, tests[i].expected_result, ft_strlen(tests[i].expected_result)) == 0)
+			printf("Result: \033[32mPASS\033[0m - %s\n", tests[i].description);
+		else if (!result && !tests[i].expected_result)
+			printf("Result: \033[32mPASS\033[0m - %s\n", tests[i].description);
+		else
+			printf("Result: \033[31mFAIL\033[0m - %s\n", tests[i].description);
+		printf("---------------------------\n");
+
+		// Free dynamically allocated memory
+		free(result);
+		i++;
+	}
+	return (0);
+}

@@ -42,17 +42,17 @@ typedef struct	s_test_case
 int	main(void)
 {
 	t_test_case tests[] = {
-		{ 'A', "Uppercase Letter" },
-		{ 'm', "Lowercase Letter" },
+		{ 'A', "Uppercase letter" },
+		{ 'm', "Lowercase letter" },
 		{ '5', "Digit" },
 		{ '.', "Punctuation" },
 		{ ' ', "Whitespace" },
-		{ 127, "DEL Character (127)" },
-		{ 128, "Extended ASCII Character (128)" },
-		{ 255, "Extended ASCII Character (255)" },
-		{ -1, "Negative Value (-1)" },
-		{ '\0', "Null Character '\\0'" },
-		{ '\n', "Newline Character '\\n'" },
+		{ 127, "DEL character (127)" },
+		{ 128, "Extended ASCII character (128)" },
+		{ 255, "Extended ASCII character (255)" },
+		{ -1, "Negative value (-1)" },
+		{ '\0', "Null character '\\0'" },
+		{ '\n', "Newline character '\\n'" },
 	};
 
 	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);

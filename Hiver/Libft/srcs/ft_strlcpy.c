@@ -71,3 +71,63 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 // Prototype of ft_strlcpy
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
+typedef struct {
+	const char *src;
+	size_t size;
+} TestCase;
+
+int	main(void)
+{
+	TestCase test_cases[] = {
+		{"Hello, World!", 50},
+		{"Hello, World!", 5},
+		{"Hello", 6},
+		{"Hello, World!", 0},
+		{"", 100},
+		{"abcdef", 4}
+	};
+	int num_tests = sizeof(test_cases) / sizeof(TestCase);
+	int i = 0;
+
+	printf("\033[4mTesting ft_strlcpy :\033[0m\n\n");
+
+	while (i < num_tests)
+	{
+		char dest[50];
+		size_t ret;
+
+		// Initialize dest buffer with a default string using ft_strlcpy
+		// If size > 0, ft_strlcpy will copy the initial string
+		// Otherwise, dest remains unchanged
+		if (test_cases[i].size > 0)
+			ft_strlcpy(dest, "Original", sizeof(dest));
+		else
+		{
+			// Manually set dest to "Original" without using ft_strlcpy
+			size_t j = 0;
+			const char *initial = "Original";
+			while (initial[j] != '\0' && j < sizeof(dest) - 1)
+			{
+				dest[j] = initial[j];
+				j++;
+			}
+			dest[j] = '\0';
+		}
+
+		// Print test case information
+		printf("\033[4mTest %d:\033[0m\n", i + 1);
+		printf("Source src: \"%s\"\n", test_cases[i].src);
+		printf("Size: %zu\n", test_cases[i].size);
+		printf("Before ft_strlcpy, dest: \"%s\"\n", dest);
+
+		// Perform ft_strlcpy
+		ret = ft_strlcpy(dest, test_cases[i].src, test_cases[i].size);
+
+		// Print results
+		printf("After ft_strlcpy, dest: \"%s\"\n", dest);
+		printf("Return value (length of src): %zu\n", ret);
+		printf("---------------------------\n");
+		i++;
+	}
+	return 0;
+}

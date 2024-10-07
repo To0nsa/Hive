@@ -39,15 +39,15 @@ int	main(void)
 		{ '0', "Digit '0'" },
 		{ '5', "Digit '5'" },
 		{ '9', "Digit '9'" },
-		{ 'a', "Lowercase Letter 'a'" },
-		{ 'Z', "Uppercase Letter 'Z'" },
+		{ 'a', "Lowercase letter 'a'" },
+		{ 'Z', "Uppercase letter 'Z'" },
 		{ '.', "Punctuation '.'" },
 		{ ' ', "Whitespace ' '" },
-		{ 128, "Extended ASCII Character (128)" },
-		{ 255, "Extended ASCII Character (255)" },
-		{ -1, "Negative Value (-1)" },
-		{ '\0', "Null Character '\\0'" },
-		{ '\n', "Newline Character '\\n'" },
+		{ 128, "Extended ASCII character (128)" },
+		{ 255, "Extended ASCII character (255)" },
+		{ -1, "Negative value (-1)" },
+		{ '\0', "Null character '\\0'" },
+		{ '\n', "Newline character '\\n'" },
 	};
 
 	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);

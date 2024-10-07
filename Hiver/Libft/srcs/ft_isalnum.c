@@ -31,6 +31,7 @@ int	ft_isalnum(int c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_isalnum.c -L lib -lft -o test/test_ft_isalnum
 
 //### Examples of usage:
+#include <libft.h>		// For size_t
 #include <ctype.h>		// For the standard isalnum function
 #include <stdio.h>		// For printf
 
@@ -44,15 +45,15 @@ typedef struct	s_test_case
 int main(void)
 {
 	t_test_case tests[] = {
-		{ 'A', "Uppercase Letter" },
-		{ 'm', "Lowercase Letter" },
+		{ 'A', "Uppercase letter" },
+		{ 'm', "Lowercase letter" },
 		{ '5', "Digit" },
 		{ '.', "Punctuation" },
 		{ ' ', "Whitespace" },
-		{ 128, "Extended ASCII Character (128)" },
-		{ 255, "Extended ASCII Character (255)" },
-		{ '\0', "Null Character '\\0'" },
-		{ '\n', "Newline Character '\\n'" },
+		{ 128, "Extended ASCII character (128)" },
+		{ 255, "Extended ASCII character (255)" },
+		{ '\0', "Null character '\\0'" },
+		{ '\n', "Newline character '\\n'" },
 	};
 
 	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);

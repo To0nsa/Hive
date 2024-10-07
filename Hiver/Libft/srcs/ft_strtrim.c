@@ -121,3 +121,78 @@ char	*ft_strtrim(const char *s1, const char *set)
  an empty string, not `NULL`.
  - Ensure memory allocation is successful by checking for a `NULL` return before 
  using the result.*/
+
+// Compile with:
+// cc -Wall -Wextra -Werror -I include srcs/ft_strtrim.c -L lib -lft -o test/test_ft_strtrim
+
+// ### Examples of usage
+#include <libft.h>
+#include <stdio.h>
+
+// Prototype of ft_strtrim
+char	*ft_strtrim(const char *s1, const char *set);
+
+// Struct to hold test case information
+typedef struct	s_test_case
+{
+	const char	*input_str;
+	const char	*set;
+	const char	*expected_result;
+	const char	*description;
+}				t_test_case;
+
+int	main(void)
+{
+	// Define test cases using the struct
+	t_test_case tests[] = {
+		{"  Hello World  ", " ", "Hello World", "Trim spaces from both sides"},
+		{"---Hello World---", "-", "Hello World", "Trim dashes from both sides"},
+		{"***Hello World", "*", "Hello World", "Trim asterisks from the beginning"},
+		{"Hello World***", "*", "Hello World", "Trim asterisks from the end"},
+		{"!!Hello!!World!!", "!", "Hello!!World", "Trim exclamation marks from both sides"},
+		{"No trim needed", "xyz", "No trim needed", "No characters to trim"},
+		{"   ", " ", "", "String of spaces, all trimmed"},
+		{"abcdef", "abcdef", "", "Entire string matches the set, should result in empty string"},
+		{"", "abc", "", "Empty input string"},
+		{"Hello", "", "Hello", "Empty set, no trimming should occur"},
+		{"   \t\nHello World\n\t   ", " \t\n", "Hello World", "Trim whitespace characters from both sides"}
+	};
+	int	num_tests = 11;
+	int	i = 0;
+
+	printf("\n\033[4mTesting ft_strtrim :\033[0m\n\n");
+
+	// Iterate through test cases using a while loop
+	while (i < num_tests)
+	{
+		char	*result;
+
+		// Call ft_strtrim with the current input
+		result = ft_strtrim(tests[i].input_str, tests[i].set);
+
+		// Print test case information
+		printf("\033[4mTest %d:\033[0m\n", i + 1);
+		printf("Input String: \"%s\"\n", tests[i].input_str);
+		printf("Set: \"%s\"\n", tests[i].set);
+		printf("Expected Result: \"%s\"\n", tests[i].expected_result ? tests[i].expected_result : "NULL");
+		printf("Actual Result: \"%s\"\n", result ? result : "NULL");
+
+		// Check if the result matches the expected value
+		if ((result == NULL && tests[i].expected_result == NULL) ||
+			(result != NULL && tests[i].expected_result != NULL &&
+			ft_strncmp(result, tests[i].expected_result, ft_strlen(tests[i].expected_result)) == 0))
+		{
+			printf("Result: \033[32mPASS\033[0m - %s\n", tests[i].description);
+		}
+		else
+		{
+			printf("Result: \033[31mFAIL\033[0m - %s\n", tests[i].description);
+		}
+		printf("---------------------------\n");
+
+		// Free dynamically allocated memory
+		free(result);
+		i++;
+	}
+	return 0;
+}

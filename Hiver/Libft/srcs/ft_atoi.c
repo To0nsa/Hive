@@ -58,16 +58,28 @@ int	ft_atoi(const char *str)
 ### Important notes:
  - The function assumes that the input is a null-terminated string.
  - It does not handle overflow/underflow conditions.
- - If the input string doesn't contain any valid numbers, the function returns `0`.*/
+ - If the input string doesn't contain any valid numbers, the function returns `0`.
+
+### Examples of usage:
+ 1- Command-Line argument conversion: When converting command-line arguments 
+ (e.g., argv in main) to integers, assuming the input is correctly formatted.
+
+ 2- Simple configuration parsing: When parsing simple configuration strings where 
+ numeric values are provided directly and expected to be valid.
+
+ 3- Data extraction from a string: Converting known numeric substrings extracted from
+ a formatted string (e.g., extracting an ID or count).
+
+ 4- Parsing numbers from a file: If reading data from a file where numeric strings are
+ guaranteed to be valid (e.g., a file with structured integer values).*/
 
 // ### Compile : 
 // cc -Wall -Wextra -Werror -I include srcs/ft_atoi.c -L lib -lft -o test/test_ft_atoi
 
-// ### Examples of usage:
 #include <stdio.h>
 int	main(void)
 {
-	const char *test_cases[] = {
+	const char	*test_cases[] = {
 		"42",			// Simple positive number
 		"-42",			// Simple negative number
 		"   123",		// Leading spaces
@@ -85,7 +97,9 @@ int	main(void)
 		"++++123",		// Multiple signs
 		NULL			// End of test cases
 	};
-	int i = 0;
+	int			i = 0;
+
+	printf("\033[4mTesting ft_atoi :\033[0m\n");
 
 	while (test_cases[i])
 	{

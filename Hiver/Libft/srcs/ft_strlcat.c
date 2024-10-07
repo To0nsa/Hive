@@ -86,6 +86,8 @@ void	test_ft_strlcat(const char *initial_dest, const char *src, size_t size, int
 	// Initialize dest
 	ft_strlcpy(dest, initial_dest, sizeof(dest));
 
+	printf("\n\033[4mTesting ft_strlcat :\033[0m\n\n");
+
 	printf("\033[4mTest %d:\033[0m\n", test_number);
 	printf("Initial dest: \"%s\"\n", dest);
 	printf("Source src: \"%s\"\n", src);

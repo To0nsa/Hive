@@ -92,3 +92,79 @@ char	*ft_substr(const char *str, unsigned int start, size_t len)
  function returns an empty string, not `NULL`.
  - Ensure memory allocation is successful by checking for a `NULL` return before 
  using the result.*/
+
+// Compile with:
+// cc -Wall -Wextra -Werror -I include srcs/ft_substr.c -L lib -lft -o test/test_ft_substr
+
+// Examples of usage
+#include <libft.h>
+#include <stdio.h>
+
+// Prototype of ft_substr
+char	*ft_substr(const char *str, unsigned int start, size_t len);
+
+// Struct to hold test case information
+typedef struct	s_test_case
+{
+	const char	*input_str;
+	unsigned int start;
+	size_t		len;
+	const char	*expected_result;
+	const char	*description;
+}				t_test_case;
+
+int	main(void)
+{
+	// Define test cases using the struct
+	t_test_case tests[] = {
+		{"Hello, World!", 7, 5, "World", "Substring starting at index 7, length 5"},
+		{"Hello, World!", 0, 5, "Hello", "Substring from the beginning of the string"},
+		{"Hello, World!", 0, 20, "Hello, World!", "Substring longer than string length"},
+		{"Hello, World!", 13, 5, "", "Start index beyond string length"},
+		{"Hello, World!", 7, 0, "", "Zero length, should return an empty string"},
+		{"Hello, World!", 5, 1, ",", "Single character substring"},
+		{"", 0, 5, "", "Empty input string"},
+		{"Hello, World!", 5, 100, ", World!", "Length greater than remaining part of the string"},
+		{"1234567890", 9, 1, "0", "Last character of the string"},
+		{"Edge cases", 9, 5, "s", "Length longer than available but within bounds"}
+	};
+	int	num_tests = 10;
+	int	i = 0;
+
+	printf("\n\033[4mTesting ft_substr :\033[0m\n\n");
+
+	// Iterate through test cases using a while loop
+	while (i < num_tests)
+	{
+		char	*result;
+
+		// Call ft_substr with the current input
+		result = ft_substr(tests[i].input_str, tests[i].start, tests[i].len);
+
+		// Print test case information
+		printf("\033[4mTest %d:\033[0m\n", i + 1);
+		printf("Input String: \"%s\"\n", tests[i].input_str);
+		printf("Start Index: %u\n", tests[i].start);
+		printf("Length: %zu\n", tests[i].len);
+		printf("Expected Result: \"%s\"\n", tests[i].expected_result ? tests[i].expected_result : "NULL");
+		printf("Actual Result: \"%s\"\n", result ? result : "NULL");
+
+		// Check if the result matches the expected value
+		if ((result == NULL && tests[i].expected_result == NULL) ||
+			(result != NULL && tests[i].expected_result != NULL &&
+			ft_strncmp(result, tests[i].expected_result, ft_strlen(tests[i].expected_result)) == 0))
+		{
+			printf("Result: \033[32mPASS\033[0m - %s\n", tests[i].description);
+		}
+		else
+		{
+			printf("Result: \033[31mFAIL\033[0m - %s\n", tests[i].description);
+		}
+		printf("---------------------------\n");
+
+		// Free dynamically allocated memory
+		free(result);
+		i++;
+	}
+	return 0;
+}

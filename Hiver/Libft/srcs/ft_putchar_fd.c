@@ -33,7 +33,7 @@ void	ft_putchar_fd(char c, int fd)
  function does not handle such errors internally.*/
 
 // ### Compile:
-// cc -Wall -Wextra -Werror -I include srcs/ft_putchar_fd.c -L lib -lft -o test/test_putchar_fd
+// cc -Wall -Wextra -Werror -I include srcs/ft_putchar_fd.c -L lib -lft -o test/test_ft_putchar_fd
 
 // ### Examples of usage:
 #include <libft.h>
