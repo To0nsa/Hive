@@ -4,17 +4,15 @@
 char	*ft_strrchr(const char *str, int c)
 {
 	char	*last_occurrence;
-	char	ch;
 
-	ch = (char)c;
 	last_occurrence = NULL;
 	while (*str != '\0')
 	{
-		if (*str == ch)
+		if (*str == (char)c)
 			last_occurrence = (char *)str;
 		str++;
 	}
-	if (ch == '\0')
+	if ((char)c == '\0')
 		return ((char *)str);
 	return (last_occurrence);
 }
