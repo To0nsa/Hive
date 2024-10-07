@@ -42,7 +42,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 ### Important notes:
  - The function assumes that the string `s` is null-terminated.
  - If `s` or `f` is `NULL`, the function does nothing.*/
- // ### Compile:
+ 
+// ### Compile:
 // cc -Wall -Wextra -Werror -I include srcs/ft_striteri.c -L lib -lft -o test/test_ft_striteri
 
 // ### Examples of usage:
