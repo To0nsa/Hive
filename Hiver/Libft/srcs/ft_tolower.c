@@ -31,7 +31,6 @@ int	ft_tolower(int c)
 // Prototype of ft_tolower
 int	ft_tolower(int c);
 
-// Struct to hold test case information
 typedef struct	s_test_case
 {
 	int		input_char;
@@ -41,7 +40,6 @@ typedef struct	s_test_case
 
 int	main(void)
 {
-	// Define test cases using the struct
 	t_test_case tests[] = {
 		{'A', 'a', "Uppercase A to lowercase a"},
 		{'Z', 'z', "Uppercase Z to lowercase z"},
@@ -59,21 +57,17 @@ int	main(void)
 
 	printf("\n\033[4mTesting ft_tolower :\033[0m\n\n");
 
-	// Iterate through test cases using a while loop
 	while (i < num_tests)
 	{
 		int	result;
 
-		// Call ft_tolower with the current input
 		result = ft_tolower(tests[i].input_char);
 
-		// Print test case information
 		printf("\033[4mTest %d:\033[0m\n", i + 1);
 		printf("Input Character: '%c' (ASCII: %d)\n", tests[i].input_char, tests[i].input_char);
 		printf("Expected Result: '%c' (ASCII: %d)\n", tests[i].expected_result, tests[i].expected_result);
 		printf("Actual Result: '%c' (ASCII: %d)\n", result, result);
 
-		// Check if the result matches the expected value
 		if (result == tests[i].expected_result)
 		{
 			printf("Result: \033[32mPASS\033[0m - %s\n", tests[i].description);
@@ -84,10 +78,8 @@ int	main(void)
 		}
 
 		printf("---------------------------\n");
-
 		i++;
 	}
-
-	return 0;
+	return (0);
 }
  

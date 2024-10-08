@@ -1,7 +1,7 @@
 
 #include <libft.h>
 
-static int	ft_n_len(int n)
+static size_t	ft_n_len(int n)
 {
 	size_t	len;
 
@@ -24,7 +24,7 @@ char	*ft_itoa(int n)
 
 	nb = n;
 	len = ft_n_len(n);
-	str = (char *)malloc((len +1) * sizeof(char));
+	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	str[len] = '\0';
@@ -39,6 +39,7 @@ char	*ft_itoa(int n)
 	{
 		str[--len] = (nb % 10) + '0';
 		nb = nb / 10;
+		len;
 	}
 	return (str);
 }

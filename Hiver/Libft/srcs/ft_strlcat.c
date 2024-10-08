@@ -1,30 +1,26 @@
 
 #include <libft.h>
 
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t dest_len;
-	size_t src_len;
-	size_t i;
+	size_t	dest_len;
+	size_t	src_len;
+	size_t	total_len;
+	size_t	space_left;
 
-	dest_len = 0;
-	src_len = 0;
 	if (!dest || !src)
-    	return (0);
-	while (dest_len < size && dest[dest_len] != '\0')
-		dest_len++;
-	while (src[src_len] != '\0')
-		src_len++;
-	if (dest_len == size)
+		return (0);
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
+	total_len = dest_len + src_len;
+	space_left = size - dest_len;
+	if (size <= dest_len)
 		return (size + src_len);
-	i = 0;
-	while (src[i] != '\0' && dest_len + i < size - 1)
-	{
-		dest[dest_len + i] = src[i];
-		i++;
-	}
-	dest[dest_len + i] = '\0';
-	return (dest_len + src_len);
+	ft_strlcpy(dest + dest_len, src, space_left);
+	return (total_len);
 }
 
 /*## Function: ft_strlcat
@@ -86,12 +82,10 @@ void	test_ft_strlcat(const char *initial_dest, const char *src, size_t size, int
 	// Initialize dest
 	ft_strlcpy(dest, initial_dest, sizeof(dest));
 
-	printf("\n\033[4mTesting ft_strlcat :\033[0m\n\n");
-
 	printf("\033[4mTest %d:\033[0m\n", test_number);
-	printf("Initial dest: \"%s\"\n", dest);
-	printf("Source src: \"%s\"\n", src);
-	printf("Size: %zu\n", size);
+	printf("dest: \"%s\"\n", dest);
+	printf("src: \"%s\"\n", src);
+	printf("size: %zu\n", size);
 
 	result = ft_strlcat(dest, src, size);
 

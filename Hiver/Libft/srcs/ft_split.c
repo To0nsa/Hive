@@ -1,57 +1,45 @@
 
 #include <libft.h>
 
-static int	ft_word_count(const char *str, char c)
-{
-	int	count;
-	int	in_substring;
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
-	count = 0;
+static size_t	ft_word_count(const char *str, char c)
+{
+	size_t	word_count;
+	int		in_substring;
+
+	word_count = 0;
 	in_substring = 0;
 	while (*str)
 	{
 		if (*str != c && in_substring == 0)
 		{
 			in_substring = 1;
-			count++;
+			word_count++;
 		}
 		else if (*str == c)
 			in_substring = 0;
 		str++;
 	}
-	return (count);
+	return (word_count);
 }
 
-static int	ft_word_len(const char *str, char c)
+static size_t	ft_word_len(const char *str, char c)
 {
-	int	len;
+	size_t	word_len;
 
-	len = 0;
-	while (str[len] && str[len] != c)
-		len++;
-	return (len);
+	word_len = 0;
+	while (str[word_len] && str[word_len] != c)
+		word_len++;
+	return (word_len);
 }
 
-static char	*ft_strncpy(char *dest, const char *src, int n)
+static void	ft_free_array(char **array, size_t word_count)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (i < n && src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-static void	ft_free_array(char **array, int nb_words)
-{
-	int	i;
-
-	i = 0;
-	while (i < nb_words)
+	while (i < word_count)
 	{
 		free(array[i]);
 		i++;
@@ -61,31 +49,31 @@ static void	ft_free_array(char **array, int nb_words)
 
 char	**ft_split(const char *str, char c)
 {
-	char	**array;
-	int		nb_words;
-	int		i;
-	int		len;
+	char		**array;
+	size_t		word_count;
+	size_t		word_len;
+	size_t		i;
 
 	if (!str)
 		return (NULL);
-	nb_words = ft_word_count(str, c);
-	array = (char **)malloc(sizeof(char *) * (nb_words + 1));
+	word_count = ft_word_count(str, c);
+	array = (char **)malloc(sizeof(char *) * (word_count + 1));
 	if (!array)
 		return (NULL);
 	i = 0;
-	while (i < nb_words)
+	while (i < word_count)
 	{
 		while (*str && *str == c)
 			str++;
-		len = ft_word_len(str, c);
-		array[i] = (char *)malloc(sizeof(char) * (len + 1));
+		word_len = ft_word_len(str, c);
+		array[i] = (char *)malloc(sizeof(char) * (word_len + 1));
 		if (!array[i])
 		{
 			ft_free_array(array, i);
 			return (NULL);
 		}
-		ft_strncpy(array[i], str, len);
-		str += len;
+		ft_strlcpy(array[i], str, word_len);
+		str += word_len;
 		i++;
 	}
 	array[i] = NULL;
@@ -99,8 +87,8 @@ char	**ft_split(const char *str, char c)
 ### Helper function prototypes:
  `static int		ft_word_count(const char *str, char c)`
  `static int		ft_word_len(const char *str, char c)`
- `static char		*ft_strncpy(char *dest, const char *src, int n)`
- `static void		ft_free_array(char **array, int nb_words)`
+ `static char		*ft_strlcpy(char *dest, const char *src, int n)`
+ `static void		ft_free_array(char **array, int word_count)`
 
 ### Description:
  The `ft_split` function splits the string `str` into an array of words based on a 
@@ -119,8 +107,8 @@ char	**ft_split(const char *str, char c)
  - The function first checks if `str` is `NULL`. If so, it returns `NULL`.
  - The helper function `ft_word_count` is used to determine how many words are in 
  the string, based on the delimiter `c`.
- - The function allocates memory for the array of strings (`nb_words + 1`) where 
- `nb_words` is the number of words found in `str`.
+ - The function allocates memory for the array of strings (`word_count + 1`) where 
+ `word_count` is the number of words found in `str`.
  - It iterates through the string `str`, skipping over delimiters, and calculates 
  the length of each word using the helper `ft_word_len`.
  - For each word, memory is allocated, and `ft_strncpy` is used to copy the word 

@@ -25,13 +25,12 @@ int	ft_toupper(int c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_toupper.c -L lib -lft -o test/test_ft_toupper
 
 // ### Examples of usage
-#include <libft.h>  // Ensure your libft header is included
+#include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_toupper
 int	ft_toupper(int c);
 
-// Struct to hold test case information
 typedef struct	s_test_case
 {
 	int		input_char;
@@ -41,7 +40,6 @@ typedef struct	s_test_case
 
 int	main(void)
 {
-	// Define test cases using the struct
 	t_test_case tests[] = {
 		{'a', 'A', "Lowercase a to uppercase A"},
 		{'z', 'Z', "Lowercase z to uppercase Z"},
@@ -64,16 +62,13 @@ int	main(void)
 	{
 		int	result;
 
-		// Call ft_toupper with the current input
 		result = ft_toupper(tests[i].input_char);
 
-		// Print test case information
 		printf("\033[4mTest %d:\033[0m\n", i + 1);
 		printf("Input Character: '%c' (ASCII: %d)\n", tests[i].input_char, tests[i].input_char);
 		printf("Expected Result: '%c' (ASCII: %d)\n", tests[i].expected_result, tests[i].expected_result);
 		printf("Actual Result: '%c' (ASCII: %d)\n", result, result);
 
-		// Check if the result matches the expected value
 		if (result == tests[i].expected_result)
 		{
 			printf("Result: \033[32mPASS\033[0m - %s\n", tests[i].description);
@@ -85,5 +80,5 @@ int	main(void)
 		printf("---------------------------\n");
 		i++;
 	}
-	return 0;
+	return (0);
 }

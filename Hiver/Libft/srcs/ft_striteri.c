@@ -20,6 +20,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
  `void	ft_striteri(char *s, void (*f)(unsigned int, char*))`
 
 ### Description:
+ "string iterator with index"
  The `ft_striteri` function applies the function `f` to each character of the 
  string `s`. The function `f` takes the index of the character as the first 
  argument and a pointer to the character as the second argument, allowing 
@@ -52,9 +53,6 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 
 // Prototype of ft_striteri
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-
-// Prototypes of helper functions
-int		ft_toupper(int c);
 
 // Function to convert characters to uppercase with an index
 void	to_uppercase(unsigned int i, char *c)

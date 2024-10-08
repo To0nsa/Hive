@@ -107,7 +107,7 @@ int	main(void)
 		{"abcd", shift_by_index, "aceg", "Shift each character by its index"},
 		{"1234", increment_char, "2345", "Increment numeric characters"},
 		{"", to_upper, "", "Empty string test"},
-		{"\n\t", increment_char, "\v\n", "Non-printable characters"},  // Corrected expected result
+		{"\n\t", increment_char, "\v\n", "Non-printable characters"},
 		{"Zz", shift_by_index, "Z{", "Shift by index on mixed case"}
 	};
 	int	num_tests = 7;
@@ -139,7 +139,6 @@ int	main(void)
 			printf("Result: \033[31mFAIL\033[0m - %s\n", tests[i].description);
 		printf("---------------------------\n");
 
-		// Free dynamically allocated memory
 		free(result);
 		i++;
 	}

@@ -1,21 +1,26 @@
 
 #include <libft.h>
 
+size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*new_str;
+	size_t	s1_len;
+	size_t	s2_len;
 	size_t	total_len;
 
 	if (!s1 || !s2)
 		return (NULL);
-	total_len = ft_strlen(s1) + ft_strlen(s2);
-	new_str = (char *)malloc(sizeof(char) * (total_len + 1));
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	total_len = s1_len + s2_len;
+	new_str = (char *)malloc((total_len + 1) * sizeof(char));
 	if (!new_str)
 		return (NULL);
-	ft_strlcpy(new_str, s1, ft_strlen(s1) + 1);
-	ft_strlcpy(new_str + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	ft_strlcpy(new_str, s1, s1_len + 1);
+	ft_strlcpy(new_str + s1_len, s2, s2_len + 1);
 	return (new_str);
 }
 

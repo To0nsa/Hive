@@ -1,6 +1,9 @@
 
 #include <libft.h>
 
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+
 static int	ft_is_in_set(char c, const char *set)
 {
 	size_t	i;
@@ -9,10 +12,10 @@ static int	ft_is_in_set(char c, const char *set)
 	while (set[i] != '\0')
 	{
 		if (set[i] == c)
-			return (TRUE);
+			return (1);
 		i++;
 	}
-	return (FALSE);
+	return (0);
 }
 
 static size_t	ft_trim_start(const char *s1, const char *set)
@@ -35,29 +38,18 @@ static size_t	ft_trim_end(const char *s1, const char *set)
 	return (end);
 }
 
-static char	*ft_strncpy(char *dest, const char *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	return (dest);
-}
-
 char	*ft_strtrim(const char *s1, const char *set)
 {
 	size_t	start;
 	size_t	end;
 	char	*trimmed_str;
+	size_t	copy_size;
 
 	if (!s1 || !set)
 		return (NULL);
 	start = ft_trim_start(s1, set);
 	end = ft_trim_end(s1, set);
+	copy_size = end - start;
 	if (start >= end)
 	{
 		trimmed_str = (char *)malloc(sizeof(char));
@@ -66,11 +58,10 @@ char	*ft_strtrim(const char *s1, const char *set)
 		trimmed_str[0] = '\0';
 		return (trimmed_str);
 	}
-	trimmed_str = (char *)malloc(sizeof(char) * (end - start + 1));
+	trimmed_str = (char *)malloc((copy_size + 1) * sizeof(char));
 	if (!trimmed_str)
 		return (NULL);
-	ft_strncpy(trimmed_str, s1 + start, end - start);
-	trimmed_str[end - start] = '\0';
+	ft_strlcpy(trimmed_str, s1 + start, copy_size + 1);
 	return (trimmed_str);
 }
 
