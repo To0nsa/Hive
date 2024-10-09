@@ -39,7 +39,6 @@ char	*ft_itoa(int n)
 	{
 		str[--len] = (nb % 10) + '0';
 		nb = nb / 10;
-		len;
 	}
 	return (str);
 }
@@ -142,9 +141,9 @@ int	main(void)
 
 		// Determine PASS or FAIL
 		if (ft_strcmp(result, tests[i].expected_output) == 0)
-			printf("PASS");
+			printf("\033[32mPASS\033[0m");
 		else
-			printf("FAIL");
+			printf("\033[31mFAIL\033[0m");
 
 		// Print description
 		printf("   | %s\n", tests[i].description);

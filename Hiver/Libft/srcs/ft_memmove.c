@@ -59,72 +59,129 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
 // ### Examples of usage:
 #include <stdio.h>
 
-// Prototype of ft_memmove 
+#include "libft.h"
+#include <stdio.h>
+#include <string.h>  // For memmove
+
+// Prototype of ft_memmove
 void	*ft_memmove(void *dest, const void *src, size_t count);
 
 // Prototype of helper functions
-int		ft_memcmp(const void *buf1, const void *buf2, size_t count);
+void	ft_memprint_hex(const void *s, size_t n);
 void	*ft_memset(void *dest, int c, size_t count);
 void	*ft_memcpy(void *dest, const void *src, size_t count);
 
-// Structure to hold individual test cases
-typedef struct s_test_case
+void	ft_memprint_hex(const void *s, size_t n)
 {
-	const char *src;
-	size_t		count;
-	const char	*expected_result;
-	const char	*description;
-}				t_test_case;
+	const unsigned char	*ptr = (const unsigned char *)s;
+	size_t				i;
+	const char			*hex_digits = "0123456789abcdef";
+	char				output[3];
 
-int	main(void)
-{
-	char	dest[100];  // Buffer for the destination of ft_memmove
-	t_test_case tests[] = {
-		{ "abcdef", 6, "abcdef", "Copy entire buffer" },
-		{ "hello", 5, "hello", "Copy smaller buffer" },
-		{ "world", 3, "wor", "Copy part of buffer" },
-		{ "", 0, "", "Copy empty buffer" },
-		{ "test123", 7, "test123", "Copy exact count" },
-		{ "overlapoverlap", 9, "overlapov", "Overlapping memory regions (forward)" },
-		{ "abcdefghij", 10, "abcdefghij", "Copy entire buffer (non-overlapping)" }
-	};
-
-	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
-	size_t	i = 0;
-	char	*result;
-
-	// Header
-	printf("Testing ft_memmove:\n");
-	printf("------------------------------------------------------------------------------------------------\n");
-	printf("%-5s | %-16s | %-7s | %-14s | %-14s | %s | %s\n", "Test", "Source", "Count", "Expected", "Output", "Result", "Description");
-	printf("------------------------------------------------------------------------------------------------\n");
-
-	// Iterate through test cases
-	while (i < num_tests)
+	output[2] = ' ';
+	i = 0;
+	while (i < n)
 	{
-		// Clear the destination buffer for each test
-		ft_memset(dest, 0, sizeof(dest));
-
-		// If overlapping test, use destination that overlaps with source
-		if (i == 5)  // For the overlapping memory test
-		{
-			ft_memcpy(dest, "overlapoverlap", 15);  // Source and destination overlap
-			result = ft_memmove(dest + 2, dest, tests[i].count);
-		}
-		else
-		{
-			// Call ft_memmove with the current input
-			result = ft_memmove(dest, tests[i].src, tests[i].count);
-		}
-		printf("%-5zu | %-16s | %-7zu | %-14s | %-14s | ", i + 1, tests[i].src, tests[i].count, tests[i].expected_result, dest);
-
-		// Determine PASS or FAIL using ft_memcmp
-		if (ft_memcmp(result, tests[i].expected_result, tests[i].count) == 0)
-			printf("PASS   | %s\n", tests[i].description);
-		else
-			printf("FAIL   | %s\n", tests[i].description);
+		output[0] = hex_digits[ptr[i] / 16];
+		output[1] = hex_digits[ptr[i] % 16];
+		write(1, output, 3);
 		i++;
 	}
-	printf("------------------------------------------------------------------------------------------------\n");
-	return (0);
+	write(1, "\n", 1);
+}
+
+int main(void)
+{
+	typedef struct s_test_case
+	{
+		const char 	*description;
+		size_t		buffer_size;
+		size_t		dest_offset;
+		size_t		src_offset;
+		size_t 		n;
+	}				t_test_case;
+
+	// Define test cases
+	t_test_case tests[] = {
+		{"Test 1: Non-overlapping regions (dest before src)", 20, 0, 10, 10},
+		{"Test 2: Non-overlapping regions (src before dest)", 20, 10, 0, 10},
+		{"Test 3: Overlapping regions (dest starts within src)", 20, 5, 0, 15},
+		{"Test 4: Overlapping regions (src starts within dest)", 20, 0, 5, 15},
+		{"Test 5: dest and src are the same", 20, 0, 0, 20},
+		{"Test 6: n = 0 (no operation)", 20, 5, 10, 0},
+	};
+
+	int num_tests = sizeof(tests) / sizeof(tests[0]);
+	int i = 0;
+
+	printf("\033[4mTesting ft_memmove:\033[0m\n\n");
+
+	while (i < num_tests)
+	{
+		unsigned char buffer[100];
+		unsigned char buffer_ft[100];
+		unsigned char buffer_std[100];
+		unsigned char *dest_ft = NULL;
+		unsigned char *dest_std = NULL;
+		unsigned char *src_ft = NULL;
+		unsigned char *src_std = NULL;
+		size_t j;
+
+		printf("%s\n", tests[i].description);
+
+		// Initialize the buffer with known values using ft_memset
+		ft_memset(buffer, 'A', sizeof(buffer));
+
+		// Modify buffer values for testing
+		j = 0;
+		while (j < tests[i].buffer_size)
+		{
+			buffer[j] = 'A' + (j % 26);
+			j++;
+		}
+
+		// Copy buffer to buffer_ft and buffer_std
+		ft_memcpy(buffer_ft, buffer, sizeof(buffer));
+		ft_memcpy(buffer_std, buffer, sizeof(buffer));
+
+		// Set up source and destination pointers with offsets
+		dest_ft = buffer_ft + tests[i].dest_offset;
+		dest_std = buffer_std + tests[i].dest_offset;
+		src_ft = buffer_ft + tests[i].src_offset;
+		src_std = buffer_std + tests[i].src_offset;
+
+		// Apply ft_memmove
+		ft_memmove(dest_ft, src_ft, tests[i].n);
+
+		// Apply standard memmove
+		memmove(dest_std, src_std, tests[i].n);
+
+		// Compare the results
+		int result = ft_memcmp(buffer_ft, buffer_std, tests[i].buffer_size);
+
+		// Print initial buffer state (after initialization and before memmove)
+		printf("Initial buffer state: ");
+		fflush(stdout);
+		ft_memprint_hex(buffer, tests[i].buffer_size);
+
+		// Print buffer after memmove
+		printf("Buffer after memmove:     ");
+		fflush(stdout);
+		ft_memprint_hex(buffer_std, tests[i].buffer_size);
+
+		// Print buffer after ft_memmove
+		printf("Buffer after ft_memmove:  ");
+		fflush(stdout);
+		ft_memprint_hex(buffer_ft, tests[i].buffer_size);
+
+		// Check if results are the same
+		if (result == 0)
+			printf("Status \033[32mPASS\033[0m\n");
+		else
+			printf("Status \033[31mFAIL\033[0m\n");
+
+		printf("---------------------------\n");
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }

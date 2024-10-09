@@ -53,63 +53,114 @@ void	*ft_memcpy(void *dest, const void *src, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memcpy.c -L lib -lft -o test/test_ft_memcpy
 
 // ### Examples of usage:
+#include "libft.h"
 #include <stdio.h>
+#include <string.h>  // For memcpy
 
-// Prototype of ft_memcpy 
+// Prototype of ft_memcpy
 void	*ft_memcpy(void *dest, const void *src, size_t count);
 
 // Prototype of helper functions
-int		ft_memcmp(const void *buf1, const void *buf2, size_t count);
-void	*ft_memset(void *dest, int c, size_t count);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_memprint_hex(const void *s, size_t n);
 
-// Structure to hold individual test cases
-typedef struct s_test_case
+void	ft_memprint_hex(const void *s, size_t n)
 {
-	const char *src;
-	size_t		count;
-	const char	*expected_result;
-	const char	*description;
-}				t_test_case;
+	const unsigned char	*ptr = (const unsigned char *)s;
+	size_t				i;
+	const char			*hex_digits = "0123456789abcdef";
+	char				output[3];
 
-int	main(void)
+	output[2] = ' ';
+	for (i = 0; i < n; i++)
+	{
+		output[0] = hex_digits[ptr[i] / 16];
+		output[1] = hex_digits[ptr[i] % 16];
+		write(1, output, 3);
+	}
+	write(1, "\n", 1);
+}
+
+int main(void)
 {
-	char	dest[100];  // Buffer for the destination of ft_memcpy
+	typedef struct s_test_case
+	{
+		const char 	*description;
+		const void	*src;
+		size_t 		n;
+		size_t		dest_size;
+	}				t_test_case;
+
+	// Define test sources
+	unsigned char src1[] = "Hello, World!";
+	unsigned char src2[] = {0x00, 0x01, 0x02, 0x03, 0x04};
+	unsigned char src3[] = "Another test string";
+
+	// Define test cases
 	t_test_case tests[] = {
-		{ "abcdef", 6, "abcdef", "Copy entire buffer" },
-		{ "hello", 5, "hello", "Copy smaller buffer" },
-		{ "world", 3, "wor", "Copy part of buffer" },
-		{ "", 0, "", "Copy empty buffer" },
-		{ "test1234", 7, "test123", "Copy exact count" },
-		{ "overlap", 4, "over", "Partial copy" }
+		{"Test 1: Copy a string to an exact-sized buffer", src1, ft_strlen((char *)src1) + 1, ft_strlen((char *)src1) + 1},
+		{"Test 2: Copy binary data", src2, sizeof(src2), sizeof(src2)},
+		{"Test 3: Copy zero bytes", src1, 0, ft_strlen((char *)src1) + 1},
+		{"Test 4: Copy to a larger buffer", src1, ft_strlen((char *)src1) + 1, 50},
+		{"Test 5: Copy a longer string into a smaller buffer (partial copy)", src3, 10, 10},
 	};
 
-	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
-	size_t	i = 0;
-	char	*result;
+	int num_tests = sizeof(tests) / sizeof(tests[0]);
+	int i = 0;
 
-	printf("Testing ft_memcpy:\n");
-	printf("------------------------------------------------------------------------------------------------\n");
-	printf("%-5s | %-16s | %-7s | %-14s | %-14s | %s | %s\n", "Test", "Source", "Count", "Expected", "Output", "Result", "Description");
-	printf("------------------------------------------------------------------------------------------------\n");
+	printf("\033[4mTesting ft_memcpy:\033[0m\n\n");
 
-	// Iterate through test cases
 	while (i < num_tests)
 	{
-		// Clear the destination buffer for each test
-		ft_memset(dest, 0, sizeof(dest));
+		// Allocate destination buffers
+		unsigned char *dest_ft;
+		unsigned char *dest_std;
 
-		// Call ft_memcpy with the current input
-		result = ft_memcpy(dest, tests[i].src, tests[i].count);
-		printf("%-5zu | %-16s | %-7zu | %-14s | %-14s | ", i + 1, tests[i].src, tests[i].count, tests[i].expected_result, result);
+		dest_ft = (unsigned char *)malloc(tests[i].dest_size);
+		dest_std = (unsigned char *)malloc(tests[i].dest_size);
+		if (!dest_ft || !dest_std)
+			return (EXIT_FAILURE);
 
-		// Determine PASS or FAIL
-		if (ft_strncmp(result, tests[i].expected_result, tests[i].count) == 0)
-			printf("PASS   | %s\n", tests[i].description);
+		// Initialize destination buffers with a known pattern
+		ft_memset(dest_ft, 0xAA, tests[i].dest_size);
+		ft_memset(dest_std, 0xAA, tests[i].dest_size);
+
+		// Apply ft_memcpy
+		ft_memcpy(dest_ft, tests[i].src, tests[i].n);
+
+		// Apply standard memcpy
+		memcpy(dest_std, tests[i].src, tests[i].n);
+
+		// Compare the results
+		int result = ft_memcmp(dest_ft, dest_std, tests[i].dest_size);
+
+		// Print the results
+		printf("%s\n", tests[i].description);
+
+		// Print source buffer
+		printf("Source: ");
+		fflush(stdout);
+		ft_memprint_hex(tests[i].src, tests[i].n);
+
+		// Print destination buffers
+		printf("Destination after memcpy:     ");
+		fflush(stdout);
+		ft_memprint_hex(dest_std, tests[i].dest_size);
+
+		printf("Destination after ft_memcpy:  ");
+		fflush(stdout);
+		ft_memprint_hex(dest_ft, tests[i].dest_size);
+
+		// Compare the results
+		if (result == 0)
+			printf("Status \033[32mPASS\033[0m\n");
 		else
-			printf("FAIL   | %s\n", tests[i].description);
+			printf("Status \033[31mFAIL\033[0m\n");
+		printf("---------------------------\n");
+
+		// Free allocated memory
+		free(dest_ft);
+		free(dest_std);
 		i++;
 	}
-	printf("------------------------------------------------------------------------------------------------\n");
-	return (0);
+	return (EXIT_SUCCESS);
 }

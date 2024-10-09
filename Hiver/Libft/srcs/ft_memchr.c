@@ -51,94 +51,105 @@ void	*ft_memchr(const void *buf, int c, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memchr.c -L lib -lft -o test/test_ft_memchr
 
 // ### Examples of usage:
+#include "libft.h"
 #include <stdio.h>
+#include <string.h>  // For memchr
 
-// Structure to hold individual test cases
-typedef struct	s_test_case
+// Prototype of ft_memchr
+void	*ft_memchr(const void *buf, int c, size_t count);
+
+// Prototype of helper functions
+int			ft_memcmp(const void *buf1, const void *buf2, size_t count);
+void		*ft_memcpy(void *dest, const void *src, size_t count);
+static void	ft_memprint_hex(const void *s, size_t n);
+
+static void	ft_memprint_hex(const void *s, size_t n)
 {
-	const char 	*buffer;
-	int			char_to_find;
-	size_t		count;
-	const char	*expected_result;
-	const char	*description;
-}				t_test_case;
+	const unsigned char	*ptr;
+	size_t				i;
+	const char			*hex_digits = "0123456789abcdef";
+	char				output[3];
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t			i;
-	unsigned char	uc1;
-	unsigned char	uc2;
-
+	output[2] = ' ';
+	ptr = (const unsigned char *)s;
 	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
+	while (i < n)
 	{
-		uc1 = (unsigned char)s1[i];
-		uc2 = (unsigned char)s2[i];
-		if (uc1 != uc2)
-			return (uc1 - uc2);
+		output[0] = hex_digits[ptr[i] / 16];
+		output[1] = hex_digits[ptr[i] % 16];
+		write(1, output, 3);
 		i++;
 	}
-	return (0);
+	write(1, "\n", 1);
 }
 
-int	main(void)
+int main(void)
 {
+	typedef struct s_test_case
+	{
+		const char 	*description;
+		const void	*buffer;
+		int			search_char;
+		size_t 		n;
+		void		*expected_result;
+	}				t_test_case;
+
+	// Define test buffers
+	unsigned char buffer1[] = "Hello, World!";
+	unsigned char buffer2[] = {0x00, 0x01, 0x02, 0x03, 0x04};
+	unsigned char buffer3[] = "Test string with multiple characters";
+
+	// Define test cases
 	t_test_case tests[] = {
-		{ "hello world", 'o', 11, "o world", "Character in the middle of the string ('o')" },
-		{ "hello world", 'h', 11, "hello world", "Character at the start of the string ('h')" },
-		{ "hello world", 'd', 11, "d", "Character at the end of the string ('d')" },
-		{ "hello world", 'x', 11, NULL, "Character not present in the string ('x')" },
-		{ "hello\0world", '\0', 11, "\0world", "Null terminator ('\\0')" },
-		{ "", 'a', 0, NULL, "Empty string" },
-		{ "abcdef", 'f', 3, NULL, "Character present but outside count range" },
-		{ "abcdef", 'a', 1, "abcdef", "Character found within count range" },
+		{"Test 1: Search for 'W' in \"Hello, World!\"", buffer1, 'W', ft_strlen((char *)buffer1), memchr(buffer1, 'W', ft_strlen((char *)buffer1))},
+		{"Test 2: Search for 'z' not in buffer", buffer1, 'z', ft_strlen((char *)buffer1), memchr(buffer1, 'z', ft_strlen((char *)buffer1))},
+		{"Test 3: Search for '\\0' in buffer", buffer1, '\0', ft_strlen((char *)buffer1) + 1, memchr(buffer1, '\0', ft_strlen((char *)buffer1) + 1)},
+		{"Test 4: Search in zero bytes (n = 0)", buffer1, 'H', 0, memchr(buffer1, 'H', 0)},
+		{"Test 5: Search for 0x03 in binary data", buffer2, 0x03, sizeof(buffer2), memchr(buffer2, 0x03, sizeof(buffer2))},
+		{"Test 6: Search for 't' in buffer with multiple occurrences", buffer3, 't', ft_strlen((char *)buffer3), memchr(buffer3, 't', ft_strlen((char *)buffer3))},
+		{"Test 7: Search for 'T' ", buffer3, 'T', ft_strlen((char *)buffer3), memchr(buffer3, 'T', ft_strlen((char *)buffer3))},
+		{"Test 8: Search for negative value -1", buffer1, -1, ft_strlen((char *)buffer1), memchr(buffer1, -1, ft_strlen((char *)buffer1))},
 	};
 
-	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
-	size_t	i = 0;
-	void	*result;
+	int num_tests = sizeof(tests) / sizeof(tests[0]);
+	int i = 0;
 
-	printf("Testing ft_memchr:\n");
-	printf("------------------------------------------------------------------------------------------------\n");
-	printf("%-5s | %-16s | %-6s | %-7s | %-12s | %-12s | %s | %s\n", "Test", "Buffer", "Char", "Count", "Expected", "Output", "Result", "Description");
-	printf("------------------------------------------------------------------------------------------------\n");
+	printf("\033[4mTesting ft_memchr:\033[0m\n\n");
 
-	// Iterate through test cases
 	while (i < num_tests)
 	{
-		// Call ft_memchr with the current input
-		result = ft_memchr(tests[i].buffer, tests[i].char_to_find, tests[i].count);
-		printf("%-5zu | %-16s | ", i + 1, tests[i].buffer);
+		// Apply ft_memchr
+		void *result = ft_memchr(tests[i].buffer, tests[i].search_char, tests[i].n);
 
-		// Print character representation safely, including special characters like '\0'
-		if (tests[i].char_to_find == '\0')
-			printf("'\\0'   | ");
-		else
-			printf("'%c'    | ", tests[i].char_to_find);
+		// Print the results
+		printf("%s\n", tests[i].description);
 
-		printf("%-7zu | ", tests[i].count);
+		// Print buffer content
+		printf("Buffer: ");
+		fflush(stdout);
+		ft_memprint_hex(tests[i].buffer, tests[i].n);
 
-		// Print expected result
+		// Print expected and actual results
+		printf("Expected result: ");
 		if (tests[i].expected_result)
-			printf("%-12s | ", tests[i].expected_result);
+			printf("Found at position %ld\n", (unsigned char *)tests[i].expected_result - (unsigned char *)tests[i].buffer);
 		else
-			printf("%-12s | ", "NULL");
+			printf("Not found (NULL)\n");
 
-		// Print actual result
+		printf("ft_memchr result: ");
 		if (result)
-			printf("%-12s | ", (char *)result);
+			printf("Found at position %ld\n", (unsigned char *)result - (unsigned char *)tests[i].buffer);
 		else
-			printf("%-12s | ", "NULL");
+			printf("Not found (NULL)\n");
 
-		// Determine PASS or FAIL
-		if (result == NULL && tests[i].expected_result == NULL)
-			printf("PASS   | %s\n", tests[i].description);
-		else if (result != NULL && ft_strcmp(result, tests[i].expected_result) == 0)
-			printf("PASS   | %s\n", tests[i].description);
+		// Compare the results
+		if (result == tests[i].expected_result)
+			printf("Status \033[32mPASS\033[0m\n");
 		else
-			printf("FAIL   | %s\n", tests[i].description);
+			printf("Status \033[31mFAIL\033[0m\n");
+
+		printf("---------------------------\n");
 		i++;
 	}
-	printf("------------------------------------------------------------------------------------------------\n");
-	return (0);
+	return (EXIT_SUCCESS);
 }

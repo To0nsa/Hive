@@ -56,61 +56,104 @@ int	ft_memcmp(const void *buf1, const void *buf2, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memcmp.c -L lib -lft -o test/test_ft_memcmp
 
 // ### Examples of usage:
+#include "libft.h"
 #include <stdio.h>
+#include <string.h>  // For memcmp
 
-// Prototype of ft_memcmp:
+// Prototype of ft_memcmp
 int	ft_memcmp(const void *buf1, const void *buf2, size_t count);
 
-// Structure to hold individual test cases
-typedef struct s_test_case
+// Prototype of helper functions
+void		*ft_memcpy(void *dest, const void *src, size_t count);
+static void	ft_memprint_hex(const void *s, size_t n);
+
+static void	ft_memprint_hex(const void *s, size_t n)
 {
-	const char *buf1;
-	const char *buf2;
-	size_t		count;
-	int			expected_result;
-	const char	*description;
-}				t_test_case;
+	const unsigned char	*ptr;
+	size_t				i;
+	const char			*hex_digits = "0123456789abcdef";
+	char				output[3];
 
-int	main(void)
-{
-	// Define test cases for ft_memcmp
-	t_test_case tests[] = {
-		{ "abcdef", "abcdef", 6, 0, "Identical buffers" },
-		{ "abcdef", "abcdez", 5, 0, "Identical for the first 5 bytes" },
-		{ "abcdef", "abcdez", 6, -1, "Different buffers, diff at 6th byte" },
-		{ "abcdef", "abcdeZ", 6, 1, "Buffers differ in the case of last byte" },
-		{ "abc", "abc", 0, 0, "Zero-length comparison" },
-		{ "abc", "xyz", 3, -23, "Completely different buffers" },
-		{ "", "", 0, 0, "Empty buffers" },
-		{ "abc", "aBc", 3, 32, "Case-sensitive comparison" },
-		{ "abc", "abc", 2, 0, "Identical first 2 bytes, extra ignored" },
-	};
-
-	size_t	num_tests = sizeof(tests) / sizeof(tests[0]);
-	size_t	i = 0;
-	int		result;
-
-	printf("Testing ft_memcmp:\n");
-	printf("------------------------------------------------------------------------------------------------\n");
-	printf("%-5s | %-10s | %-10s | %-7s | %-10s | %-8s | %s | %s\n", "Test", "Buffer 1", "Buffer 2", "Count", "Expected", "Output", "Result", "Description");
-	printf("------------------------------------------------------------------------------------------------\n");
-
-	// Iterate through test cases
-	while (i < num_tests)
+	output[2] = ' ';
+	ptr = (const unsigned char *)s;
+	i = 0;
+	while (i < n)
 	{
-		// Call ft_memcmp with the current input
-		result = ft_memcmp(tests[i].buf1, tests[i].buf2, tests[i].count);
-		printf("%-5zu | %-10s | %-10s | %-7zu | %-10d | %-8d | ", i + 1, tests[i].buf1, tests[i].buf2, tests[i].count, tests[i].expected_result, result);
-
-		// Determine PASS or FAIL
-		if ((result == 0 && tests[i].expected_result == 0) || 
-			(result < 0 && tests[i].expected_result < 0) || 
-			(result > 0 && tests[i].expected_result > 0))
-			printf("PASS   | %s\n", tests[i].description);
-		else
-			printf("FAIL   | %s\n", tests[i].description);
+		output[0] = hex_digits[ptr[i] / 16];
+		output[1] = hex_digits[ptr[i] % 16];
+		write(1, output, 3);
 		i++;
 	}
-	printf("------------------------------------------------------------------------------------------------\n");
-	return (0);
+	write(1, "\n", 1);
+}
+
+int main(void)
+{
+	typedef struct s_test_case
+	{
+		const char 	*description;
+		const void	*buffer1;
+		const void	*buffer2;
+		size_t 		n;
+		int			expected_result;
+	}				t_test_case;
+
+	// Define test buffers
+	unsigned char buf_a1[] = "Hello, World!";
+	unsigned char buf_a2[] = "Hello, World!";
+	unsigned char buf_b1[] = "Hello, Wxrld!";
+	unsigned char buf_b2[] = "Hello, World!";
+	unsigned char buf_c1[] = {0x00, 0x01, 0x02, 0x03, 0x04};
+	unsigned char buf_c2[] = {0x00, 0x01, 0x02, 0x03, 0x05};
+	unsigned char buf_d1[] = "Short";
+	unsigned char buf_d2[] = "Shorter";
+
+	// Define test cases
+	t_test_case tests[] = {
+		{"Test 1: Compare identical buffers", buf_a1, buf_a2, ft_strlen((char *)buf_a1), memcmp(buf_a1, buf_a2, ft_strlen((char *)buf_a1))},
+		{"Test 2: Compare buffers with one different character", buf_b1, buf_b2, ft_strlen((char *)buf_b1), memcmp(buf_b1, buf_b2, ft_strlen((char *)buf_b1))},
+		{"Test 3: Compare buffers with binary data", buf_c1, buf_c2, sizeof(buf_c1), memcmp(buf_c1, buf_c2, sizeof(buf_c1))},
+		{"Test 4: Compare buffers up to n = 0", buf_a1, buf_b1, 0, memcmp(buf_a1, buf_b1, 0)},
+		{"Test 5: Compare buffers with different lengths", buf_d1, buf_d2, ft_strlen((char *)buf_d1), memcmp(buf_d1, buf_d2, ft_strlen((char *)buf_d1))},
+		{"Test 6: Compare buffers with negative difference", buf_b2, buf_b1, ft_strlen((char *)buf_b2), memcmp(buf_b2, buf_b1, ft_strlen((char *)buf_b2))},
+		{"Test 7: Compare buffers with null bytes", "abc\0def", "abc\0xyz", 7, memcmp("abc\0def", "abc\0xyz", 7)},
+		{"Test 8: Compare empty buffers", "", "", 1, memcmp("", "", 1)},
+	};
+
+	int num_tests = sizeof(tests) / sizeof(tests[0]);
+	int i = 0;
+
+	printf("\033[4mTesting ft_memcmp:\033[0m\n\n");
+
+	while (i < num_tests)
+	{
+		int result = ft_memcmp(tests[i].buffer1, tests[i].buffer2, tests[i].n);
+
+		// Print the results
+		printf("%s\n", tests[i].description);
+
+		// Print buffer contents
+		printf("Buffer 1: ");
+		fflush(stdout);
+		ft_memprint_hex(tests[i].buffer1, tests[i].n);
+
+		printf("Buffer 2: ");
+		fflush(stdout);
+		ft_memprint_hex(tests[i].buffer2, tests[i].n);
+
+		// Print expected and actual results
+		printf("Expected result: %d\n", tests[i].expected_result);
+		printf("ft_memcmp result: %d\n", result);
+
+		// Compare the results
+		if ((result == 0 && tests[i].expected_result == 0) ||
+			(result < 0 && tests[i].expected_result < 0) ||
+			(result > 0 && tests[i].expected_result > 0))
+			printf("Status \033[32mPASS\033[0m\n");
+		else
+			printf("Status \033[31mFAIL\033[0m\n");
+		printf("---------------------------\n");
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
