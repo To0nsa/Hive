@@ -5,8 +5,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-#define TRUE 1
-#define FALSE 0
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
+
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -42,5 +46,4 @@ char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_substr(const char *str, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-
 #endif

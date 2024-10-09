@@ -1,5 +1,7 @@
 
-#include <libft.h>
+#include "libft.h"
+
+int	ft_isdigit(int c);
 
 static int	ft_isspace(int c)
 {
@@ -73,37 +75,70 @@ int	ft_atoi(const char *str)
  4- Parsing numbers from a file: If reading data from a file where numeric strings are
  guaranteed to be valid (e.g., a file with structured integer values).*/
 
-// ### Compile : 
+// ### Compile: 
 // cc -Wall -Wextra -Werror -I include srcs/ft_atoi.c -L lib -lft -o test/test_ft_atoi
 
+#include "libft.h"
 #include <stdio.h>
+#include <limits.h>
+
+// Prototype of ft_atoi
+int	ft_atoi(const char *str);
+
+typedef struct	s_test_case
+{
+	const char	*str;
+	int			expected;
+	const char	*description;
+}				t_test_case;
+
 int	main(void)
 {
-	const char	*test_cases[] = {
-		"42",			// Simple positive number
-		"-42",			// Simple negative number
-		"   123",		// Leading spaces
-		"   -123",		// Leading spaces with negative sign
-		"+123",			// Positive sign
-		"0",			// Zero
-		"-0",			// Negative zero
-		"2147483647",	// Maximum int
-		"-2147483648",	// Minimum int
-		"   +000123",	// Leading zeros and spaces
-		"123abc",		// Invalid characters after number
-		"abc123",		// Invalid characters before number
-		"   +   123",	// Invalid characters in between
-		"",				// Empty string
-		"++++123",		// Multiple signs
-		NULL			// End of test cases
+	t_test_case tests[] = {
+		{"42", 42, "Simple positive number"},
+		{"-42", -42, "Simple negative number"},
+		{"   123", 123, "Leading spaces"},
+		{"   -123", -123, "Leading spaces with negative sign"},
+		{"+123", 123, "Positive sign"},
+		{"0", 0, "Zero"},
+		{"-0", 0, "Negative zero"},
+		{"2147483647", INT_MAX, "Maximum int"},
+		{"-2147483648", INT_MIN, "Minimum int"},
+		{"   +000123", 123, "Leading zeros and spaces"},
+		{"123abc", 123, "Invalid characters after number"},
+		{"abc123", 0, "Invalid characters before number"},
+		{"   +   123", 0, "Invalid characters in between"},
+		{"", 0, "Empty string"},
+		{"++++123", 0, "Multiple signs"},
+		{"2147483648", INT_MAX, "Overflow beyond INT_MAX"},
+		{"-2147483649", INT_MIN, "Underflow beyond INT_MIN"},
 	};
-	int			i = 0;
+	
+	int	num_tests = sizeof(tests) / sizeof(tests[0]);
+	int	i = 0;
 
-	printf("\033[4mTesting ft_atoi :\033[0m\n");
+	printf("\033[4mTesting ft_atoi:\033[0m\n\n");
 
-	while (test_cases[i])
+	while (i < num_tests)
 	{
-		printf("Input:'%11s' -> Output: %d\n", test_cases[i], ft_atoi(test_cases[i]));
+		int	result = ft_atoi(tests[i].str);
+		int	pass = 0;
+
+		if (result == tests[i].expected)
+			pass = 1;
+		else
+			pass = 0;
+
+		printf("\033[4mTest %d:\033[0m %s\n", i + 1, tests[i].description);
+		printf("Input: '%s'\n", tests[i].str);
+		printf("Expected Output: %d\n", tests[i].expected);
+		printf("Actual Output:   %d\n", result);
+
+		if (pass)
+			printf("Result: \033[32mPASS\033[0m\n");
+		else
+			printf("Result: \033[31mFAIL\033[0m\n");
+		printf("---------------------------\n");
 		i++;
 	}
 	return (0);
