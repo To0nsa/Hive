@@ -3,31 +3,31 @@
 
 static size_t	ft_n_len(int n)
 {
-	size_t	len;
+	size_t	n_len;
 
-	len = 0;
+	n_len = 0;
 	if (n <= 0)
-		len++;
+		n_len++;
 	while (n != 0)
 	{
 		n = n / 10;
-		len++;
+		n_len++;
 	}
-	return (len);
+	return (n_len);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*str;
-	size_t 	len;
+	size_t 	n_len;
 	long	nb;
 
 	nb = n;
-	len = ft_n_len(n);
-	str = (char *)malloc((len + 1) * sizeof(char));
+	n_len = ft_n_len(n);
+	str = (char *)malloc((n_len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	str[len] = '\0';
+	str[n_len] = '\0';
 	if (nb == 0)
 		str[0] = '0';
 	if (nb < 0)
@@ -37,7 +37,7 @@ char	*ft_itoa(int n)
 	}
 	while (nb > 0)
 	{
-		str[--len] = (nb % 10) + '0';
+		str[--n_len] = (nb % 10) + '0';
 		nb = nb / 10;
 	}
 	return (str);
