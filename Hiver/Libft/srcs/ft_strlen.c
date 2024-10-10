@@ -3,7 +3,7 @@
 
 size_t	ft_strlen(const char *str)
 {
-	int len;
+	size_t len;
 
 	len = 0;
 	if (!str)

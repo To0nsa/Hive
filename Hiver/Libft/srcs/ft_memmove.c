@@ -160,7 +160,7 @@ int main(void)
 		int result = ft_memcmp(buffer_ft, buffer_std, tests[i].buffer_size);
 
 		// Print initial buffer state (after initialization and before memmove)
-		printf("Initial buffer state: ");
+		printf("Initial buffer state:     ");
 		fflush(stdout);
 		ft_memprint_hex(buffer, tests[i].buffer_size);
 
