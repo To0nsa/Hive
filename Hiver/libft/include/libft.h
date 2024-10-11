@@ -5,10 +5,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_list			// Struct : defines the structure of each node (data + pointer to the next node).
+typedef struct s_list
 {
-	void			*content;	// Data : this holds the data (content) of the node
-	struct s_list	*next;		// Pointer : this points to the next node in the list, which forms the link between nodes.
+	void			*content;
+	struct s_list	*next;
 }				t_list;
 
 int		ft_atoi(const char *str);

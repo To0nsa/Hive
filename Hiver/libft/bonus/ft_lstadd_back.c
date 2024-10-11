@@ -1,17 +1,17 @@
 
 #include <libft.h>
 
-void	ft_lstadd_back(t_list **lst, t_list *new_elem)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
 
-	if (lst == NULL || new_elem == NULL)
+	if (lst == NULL || new == NULL)
 		return ;
 	if (*lst == NULL)
-		*lst = new_elem;
+		*lst = new;
 	else
 	{
 		last = ft_lstlast(*lst);
-		last->next = new_elem;
+		last->next = new;
 	}
 }
