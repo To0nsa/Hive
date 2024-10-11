@@ -78,7 +78,7 @@ char	*ft_itoa(int n)
 // cc -Wall -Wextra -Werror -I include srcs/ft_itoa.c -L lib -lft -o test/test_ft_itoa
 
 // ### Examples of usage:
-#include <stdio.h>
+/* #include <stdio.h>
 #include <limits.h>
 
 
@@ -154,4 +154,4 @@ int	main(void)
 	}
 	printf("---------------------------------------------------------------------------\n");
 	return (0);
-}
+} */

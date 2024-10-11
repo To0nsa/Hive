@@ -57,7 +57,7 @@ void	ft_putnbr_fd(int n, int fd)
 // cc -Wall -Wextra -Werror -I include srcs/ft_putnbr_fd.c -L lib -lft -o test/test_ft_putnbr_fd
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 
 // Prototype of ft_putnbr_fd
 void	ft_putnbr_fd(int n, int fd);
@@ -98,3 +98,4 @@ int	main(void)
 
 	return (0);
 }
+ */

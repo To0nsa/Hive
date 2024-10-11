@@ -48,7 +48,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 // cc -Wall -Wextra -Werror -I include srcs/ft_striteri.c -L lib -lft -o test/test_ft_striteri
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_striteri
@@ -115,4 +115,4 @@ int	main(void)
 	printf("\n");
 
 	return (0);
-}
+} */

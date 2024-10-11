@@ -65,7 +65,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strlcpy.c -L lib -lft -o test/test_ft_strlcpy
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_strlcpy
@@ -131,3 +131,4 @@ int	main(void)
 	}
 	return 0;
 }
+ */

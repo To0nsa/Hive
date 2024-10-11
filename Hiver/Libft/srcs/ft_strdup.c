@@ -52,7 +52,7 @@ char	*ft_strdup(const char *src)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strdup.c -L lib -lft -o test/test_ft_strdup
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_strdup
@@ -102,4 +102,4 @@ int	main(void)
 	print_strdup_result(5, "(NULL input)", result);
 
 	return (0);
-}
+} */

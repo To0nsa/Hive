@@ -81,7 +81,7 @@ char	*ft_substr(const char *str, unsigned int start, size_t len)
 // cc -Wall -Wextra -Werror -I include srcs/ft_substr.c -L lib -lft -o test/test_ft_substr
 
 // Examples of usage
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_substr
@@ -151,4 +151,4 @@ int	main(void)
 		i++;
 	}
 	return 0;
-}
+} */

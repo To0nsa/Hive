@@ -51,7 +51,7 @@ void	*ft_memchr(const void *buf, int c, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memchr.c -L lib -lft -o test/test_ft_memchr
 
 // ### Examples of usage:
-#include "libft.h"
+/* #include "libft.h"
 #include <stdio.h>
 #include <string.h>  // For memchr
 
@@ -152,4 +152,4 @@ int main(void)
 		i++;
 	}
 	return (EXIT_SUCCESS);
-}
+} */

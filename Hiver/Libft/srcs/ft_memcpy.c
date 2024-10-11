@@ -53,7 +53,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memcpy.c -L lib -lft -o test/test_ft_memcpy
 
 // ### Examples of usage:
-#include "libft.h"
+/* #include "libft.h"
 #include <stdio.h>
 #include <string.h>  // For memcpy
 
@@ -163,4 +163,4 @@ int main(void)
 		i++;
 	}
 	return (EXIT_SUCCESS);
-}
+} */

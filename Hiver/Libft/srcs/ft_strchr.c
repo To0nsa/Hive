@@ -57,7 +57,7 @@ char	*ft_strchr(const char *str, int c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strchr.c -L lib -lft -o test/test_ft_strchr
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_strchr (Assumed to be declared in libft.h)
@@ -108,4 +108,4 @@ int	main(void)
 	print_strchr_result(5, "Hello, world!", '\0', result);
 
 	return (0);
-}
+} */

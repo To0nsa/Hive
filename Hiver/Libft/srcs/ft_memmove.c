@@ -57,9 +57,7 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memmove.c -L lib -lft -o test/test_ft_memmove
 
 // ### Examples of usage:
-#include <stdio.h>
-
-#include "libft.h"
+/* #include "libft.h"
 #include <stdio.h>
 #include <string.h>  // For memmove
 
@@ -184,4 +182,4 @@ int main(void)
 		i++;
 	}
 	return (EXIT_SUCCESS);
-}
+} */

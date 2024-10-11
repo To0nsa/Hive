@@ -129,7 +129,7 @@ char	**ft_split(const char *str, char c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_split.c -L lib -lft -o test/test_ft_split
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 
 // Prototype of ft_split
 char	**ft_split(const char *str, char c);
@@ -217,4 +217,4 @@ int	main(void)
 	ft_putchar_fd('\n', 1);
 
 	return (0);
-}
+} */

@@ -22,7 +22,7 @@ int	ft_isdigit(int c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_isdigit.c -L lib -lft -o test/test_ft_isdigit
 
 // ###Examples of usage:
-#include <libft.h>		// For size_t
+/* #include <libft.h>		// For size_t
 #include <ctype.h>		// For the standard isdigit function
 #include <stdio.h>		// For printf
 
@@ -91,4 +91,4 @@ int	main(void)
 	}
 	printf("---------------------------------------------------------------------\n");
 	return (0);
-}
+} */

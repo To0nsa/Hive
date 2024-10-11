@@ -49,7 +49,7 @@ void	*ft_memset(void *dest, int c, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memset.c -L lib -lft -o test/test_ft_memset
 
 // ### Examples of usage:
-#include "libft.h"
+/* #include "libft.h"
 #include <stdio.h>
 #include <string.h>  // for memset
 
@@ -160,4 +160,4 @@ int main(void)
 		i++;
 	}
 	return (EXIT_SUCCESS);
-}
+} */

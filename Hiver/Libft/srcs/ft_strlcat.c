@@ -65,7 +65,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strlcat.c -L lib -lft -o test/test_ft_strlcat
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_strlcat
@@ -122,4 +122,4 @@ int main(void)
 	test_ft_strlcat("Hello", " World", 5, 8);
 
 	return 0;
-}
+} */

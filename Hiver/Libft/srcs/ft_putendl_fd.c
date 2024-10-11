@@ -44,7 +44,7 @@ void	ft_putendl_fd(char *s, int fd)
 // cc -Wall -Wextra -Werror -I include srcs/ft_putendl_fd.c -L lib -lft -o test/test_ft_putendl_fd
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 
 // Prototype of ft_putendl_fd
 void	ft_putendl_fd(char *s, int fd);
@@ -76,3 +76,4 @@ int	main(void)
 
 	return (0);
 }
+ */

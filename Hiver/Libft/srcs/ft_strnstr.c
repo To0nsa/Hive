@@ -57,7 +57,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strnstr.c -L lib -lft -o test/test_ft_strnstr
 
 // ### Examples of usage
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_strnstr
@@ -127,4 +127,4 @@ int	main(void)
 		i++;
 	}
 	return 0;
-}
+} */

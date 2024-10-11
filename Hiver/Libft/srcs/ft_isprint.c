@@ -29,7 +29,7 @@ int	ft_isprint(int c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_isprint.c -L lib -lft -o test/test_ft_isprint
 
 // ### Examples of usage:
-#include <libft.h>		// For size_t
+/* #include <libft.h>		// For size_t
 #include <ctype.h>		// For the standard isprint function
 #include <stdio.h>		// For printf
 
@@ -100,3 +100,4 @@ int	main(void)
 	printf("---------------------------------------------------------------------\n");
 	return (0);
 }
+ */

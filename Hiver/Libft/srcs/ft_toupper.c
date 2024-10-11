@@ -25,7 +25,7 @@ int	ft_toupper(int c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_toupper.c -L lib -lft -o test/test_ft_toupper
 
 // ### Examples of usage
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_toupper
@@ -81,4 +81,4 @@ int	main(void)
 		i++;
 	}
 	return (0);
-}
+} */

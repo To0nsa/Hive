@@ -117,7 +117,7 @@ char	*ft_strtrim(const char *s1, const char *set)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strtrim.c -L lib -lft -o test/test_ft_strtrim
 
 // ### Examples of usage
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_strtrim
@@ -186,4 +186,4 @@ int	main(void)
 		i++;
 	}
 	return 0;
-}
+} */

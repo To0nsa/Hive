@@ -56,7 +56,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 // cc -Wall -Wextra -Werror -I include srcs/ft_calloc.c -L lib -lft -o test/test_ft_calloc
 
 //### Examples of usage:
-#include <stdio.h>		// For printf
+/* #include <stdio.h>		// For printf
 #include <stdint.h>		// For SIZE_MAX
 
 // Helper function to verify if memory is zeroed
@@ -238,4 +238,4 @@ int	main(void)
 	}
 
 	return (0);
-}
+} */

@@ -48,7 +48,7 @@ void	ft_bzero(void *s, size_t n)
 // cc -Wall -Wextra -Werror -I include srcs/ft_bzero.c -L lib -lft -o test/test_ft_bzero
 
 //### Examples of usage:
-#include "libft.h"
+/* #include "libft.h"
 #include <stdio.h>
 #include <strings.h>  // for bzero
 
@@ -156,4 +156,4 @@ int main(void)
 	}
 	return (EXIT_SUCCESS);
 }
- 
+  */

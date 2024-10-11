@@ -67,7 +67,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strjoin.c -L lib -lft -o test/test_ft_strjoin
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 
 // Prototype of ft_strjoin
@@ -121,4 +121,4 @@ int	main(void)
 	test_ft_strjoin(NULL, NULL, 9);
 
 	return (0);
-}
+} */

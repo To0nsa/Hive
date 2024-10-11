@@ -48,7 +48,7 @@ size_t	ft_strlen(const char *str)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strlen.c -L lib -lft -o test/test_ft_strlen
 
 // ### Examples of usage:
-#include <libft.h>  // Ensure your libft header is included
+/* #include <libft.h>  // Ensure your libft header is included
 #include <stdio.h>
 
 // Prototype of ft_strlen
@@ -99,4 +99,4 @@ int	main(void)
 		i++;
 	}
 	return 0;
-}
+} */

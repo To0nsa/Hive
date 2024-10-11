@@ -56,7 +56,7 @@ int	ft_memcmp(const void *buf1, const void *buf2, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memcmp.c -L lib -lft -o test/test_ft_memcmp
 
 // ### Examples of usage:
-#include "libft.h"
+/* #include "libft.h"
 #include <stdio.h>
 #include <string.h>  // For memcmp
 
@@ -156,4 +156,4 @@ int main(void)
 		i++;
 	}
 	return (EXIT_SUCCESS);
-}
+} */

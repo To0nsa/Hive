@@ -59,7 +59,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 // cc -Wall -Wextra -Werror -I include srcs/ft_strmapi.c -L lib -lft -o test/test_ft_strmapi
 
 // Examples of usage
-#include <libft.h>
+/* #include <libft.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -143,4 +143,4 @@ int	main(void)
 		i++;
 	}
 	return (0);
-}
+} */

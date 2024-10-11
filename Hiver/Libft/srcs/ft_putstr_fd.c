@@ -45,7 +45,7 @@ void	ft_putstr_fd(char *s, int fd)
 // cc -Wall -Wextra -Werror -I include srcs/ft_putstr_fd.c -L lib -lft -o test/test_ft_putstr_fd
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 
 // Prototype of ft_putstr_fd
 void	ft_putstr_fd(char *s, int fd);
@@ -66,4 +66,4 @@ int	main(void)
 	ft_putstr_fd("Test 6: Print a NULL string\n", 1);
 	ft_putstr_fd(NULL, 1);
 	return (0);
-}
+} */

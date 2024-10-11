@@ -52,7 +52,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 // cc -Wall -Wextra -Werror -I include srcs/ft_strncmp.c -L lib -lft -o test/test_ft_strncmp
 
 // ### Examples of usage
-#include <libft.h>  // Ensure your libft header is included
+/* #include <libft.h>  // Ensure your libft header is included
 #include <stdio.h>
 
 // Prototype of ft_strncmp
@@ -122,4 +122,4 @@ int	main(void)
 		i++;
 	}
 	return 0;
-}
+} */

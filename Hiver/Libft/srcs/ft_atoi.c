@@ -78,7 +78,7 @@ int	ft_atoi(const char *str)
 // ### Compile: 
 // cc -Wall -Wextra -Werror -I include srcs/ft_atoi.c -L lib -lft -o test/test_ft_atoi
 
-#include "libft.h"
+/* #include "libft.h"
 #include <stdio.h>
 #include <limits.h>
 
@@ -143,3 +143,4 @@ int	main(void)
 	}
 	return (0);
 }
+ */

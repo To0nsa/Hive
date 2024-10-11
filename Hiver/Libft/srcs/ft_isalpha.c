@@ -29,7 +29,7 @@ int	ft_isalpha(int c)
 // cc -Wall -Wextra -Werror -I include srcs/ft_isalpha.c -L lib -lft -o test/test_ft_isalpha
 
 // ###Examples of usage:
-#include <libft.h>		// For size_t
+/* #include <libft.h>		// For size_t
 #include <ctype.h>		// For the standard isalpha function
 #include <stdio.h>		// For printf
 
@@ -94,4 +94,4 @@ int main(void)
 	}
 	printf("---------------------------------------------------------------------\n");
 	return (0);
-}
+} */

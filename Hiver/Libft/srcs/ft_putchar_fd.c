@@ -36,7 +36,7 @@ void	ft_putchar_fd(char c, int fd)
 // cc -Wall -Wextra -Werror -I include srcs/ft_putchar_fd.c -L lib -lft -o test/test_ft_putchar_fd
 
 // ### Examples of usage:
-#include <libft.h>
+/* #include <libft.h>
 
 // Prototype of ft_putchar_fd
 void	ft_putchar_fd(char c, int fd);
@@ -65,3 +65,4 @@ int	main(void)
 	ft_putchar_fd('\n', 1);
 	return (0);
 }
+ */
