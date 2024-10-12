@@ -1,19 +1,19 @@
 
 #include <libft.h>
 
-void	*ft_memset(void *dest, int c, size_t count)
+void	*ft_memset(void *s, int c, size_t n)
 {
 	unsigned char	*ptr;
 	size_t			i;
 
-	ptr = (unsigned char *)dest;
+	ptr = (unsigned char *)s;
 	i = 0;
-	while (i < count)
+	while (i < n)
 	{
 		ptr[i] = (unsigned char)c;
 		i++;
 	}
-	return (dest);
+	return (s);
 }
 
 /*## Function: ft_memset
@@ -49,7 +49,7 @@ void	*ft_memset(void *dest, int c, size_t count)
 // cc -Wall -Wextra -Werror -I include srcs/ft_memset.c -L lib -lft -o test/test_ft_memset
 
 // ### Examples of usage:
-/* #include "libft.h"
+#include "libft.h"
 #include <stdio.h>
 #include <string.h>  // for memset
 
@@ -160,4 +160,4 @@ int main(void)
 		i++;
 	}
 	return (EXIT_SUCCESS);
-} */
+}

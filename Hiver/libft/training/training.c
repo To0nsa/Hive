@@ -1,47 +1,23 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <stddef.h>
 
-void	ft_putchar(char c)
+void *memmove(void *dest, const void *src, size_t n)
 {
-	write(1, &c, 1);
-}
+	unsigned char *d;
+	const unsigned char *s;
 
-size_t	ft_strlen(const char *str)
-{
-	size_t len;
-
-	len = 0;
-    while (str[len] != '\0')
-        len++;
-    return (len);
-}
-
-void	ft_putstr(char *str)
-{
-	write(1, str, ft_strlen(str));
-}
-
-void    ft_rot_13(char *str)
-{
-    int i = 0;
-    char c;
-
-    while (str[i])
-    {
-        c = str[i];
-        if ((c >= 'a' && c <= 'z'))
-            c = ((c - 'a' + 1) % 26) + 'a';
-        else if ((c >= 'A' && c <= 'Z'))
-            c = ((c - 'A' + 1) % 26) + 'A';
-        write(1, &c, 1);
-        i++;
-    }
-}
-
-int main(int argc, char **argv)
-{
-    if (argc == 2)
-        ft_rot_13(argv[1]);
-    write(1, "\n", 1);
-    return 0;
+	d = (unsigned char *)dest;
+	s = (const unsigned char *)src;
+	if (d > s && d < s + n)
+	{
+		while (n--)
+			d[n] = s[n];
+	}
+	else
+	{
+		while (n--)
+			*d++ = *s++;
+	}
+	return (dest);
 }

@@ -1,23 +1,21 @@
 
 #include <libft.h>
 
-void	*ft_memmove(void *dest, const void *src, size_t count)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	unsigned char		*d;
 	const unsigned char	*s;
 
 	d = (unsigned char *)dest;
 	s = (const unsigned char *)src;
-	if (!dest && !src)
-		return (NULL);
-	if (d > s && d < s + count)
+	if (d > s && d < s + n)
 	{
-		while (count--)
-			d[count] = s[count];
+		while (n--)
+			d[n] = s[n];
 	}
 	else
 	{
-		while (count--)
+		while (n--)
 			*d++ = *s++;
 	}
 	return (dest);
@@ -25,10 +23,10 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
 
 /*## Function: ft_memmove
 ### Prototype:
- `void	*ft_memmove(void *dest, const void *src, size_t count)`
+ `void	*ft_memmove(void *dest, const void *src, size_t n)`
 
 ### Description:
- The `ft_memmove` function copies `count` bytes from the memory area `src` to the 
+ The `ft_memmove` function copies `n` bytes from the memory area `src` to the 
  memory area `dest`. It safely handles overlapping memory regions by ensuring 
  that the copy is done in a way that prevents data corruption. The function returns 
  a pointer to the destination memory area `dest`.
@@ -37,7 +35,7 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
  - `void *dest`: A pointer to the destination memory area where the data will be 
  copied.
  - `const void *src`: A pointer to the source memory area to copy the data from.
- - `size_t count`: The number of bytes to copy from `src` to `dest`.
+ - `size_t n`: The number of bytes to copy from `src` to `dest`.
 
 ### Return:
  - Returns a pointer to the destination memory area `dest`.
@@ -62,12 +60,12 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
 #include <string.h>  // For memmove
 
 // Prototype of ft_memmove
-void	*ft_memmove(void *dest, const void *src, size_t count);
+void	*ft_memmove(void *dest, const void *src, size_t n);
 
 // Prototype of helper functions
 void	ft_memprint_hex(const void *s, size_t n);
-void	*ft_memset(void *dest, int c, size_t count);
-void	*ft_memcpy(void *dest, const void *src, size_t count);
+void	*ft_memset(void *dest, int c, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 void	ft_memprint_hex(const void *s, size_t n)
 {

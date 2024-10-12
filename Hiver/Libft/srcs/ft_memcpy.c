@@ -1,7 +1,7 @@
 
 #include <libft.h>
 
-void	*ft_memcpy(void *dest, const void *src, size_t count)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char		*d;
 	const unsigned char	*s;
@@ -10,7 +10,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t count)
 	d = (unsigned char *)dest;
 	s = (const unsigned char *)src;
 	i = 0;
-	while (i < count)
+	while (i < n)
 	{
 		d[i] = s[i];
 		i++;
@@ -20,10 +20,10 @@ void	*ft_memcpy(void *dest, const void *src, size_t count)
 
 /*## Function: ft_memcpy
 ### Prototype:
- `void	*ft_memcpy(void *dest, const void *src, size_t count)`
+ `void	*ft_memcpy(void *dest, const void *src, size_t n)`
 
 ### Description:
- The `ft_memcpy` function copies `count` bytes from the memory area `src` to the 
+ The `ft_memcpy` function copies `n` bytes from the memory area `src` to the 
  memory area `dest`. The memory areas must not overlap, as the behavior is 
  undefined in such cases. The function returns a pointer to the destination 
  memory `dest`.
@@ -32,7 +32,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t count)
  - `void *dest`: A pointer to the destination memory area where the data will be 
  copied.
  - `const void *src`: A pointer to the source memory area to copy the data from.
- - `size_t count`: The number of bytes to copy from `src` to `dest`.
+ - `size_t n`: The number of bytes to copy from `src` to `dest`.
 
 ### Return:
  - Returns a pointer to the destination memory area `dest`.
@@ -40,7 +40,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t count)
 ### Details:
  - The function casts both `src` and `dest` to `unsigned char *` to handle the 
  copy operation byte by byte.
- - It then iterates over the first `count` bytes of the source memory and copies 
+ - It then iterates over the first `n` bytes of the source memory and copies 
  each byte to the destination memory.
  - The function does not handle overlapping memory areas. For overlapping memory, 
  `memmove` should be used instead.
@@ -58,7 +58,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t count)
 #include <string.h>  // For memcpy
 
 // Prototype of ft_memcpy
-void	*ft_memcpy(void *dest, const void *src, size_t count);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 // Prototype of helper functions
 void	ft_memprint_hex(const void *s, size_t n);

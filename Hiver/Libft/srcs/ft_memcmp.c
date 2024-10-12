@@ -1,16 +1,16 @@
 
 #include <libft.h>
 
-int	ft_memcmp(const void *buf1, const void *buf2, size_t count)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	const unsigned char	*ptr1;
 	const unsigned char	*ptr2;
 	size_t				i;
 
-	ptr1 = (const unsigned char *)buf1;
-	ptr2 = (const unsigned char *)buf2;
+	ptr1 = (const unsigned char *)s1;
+	ptr2 = (const unsigned char *)s2;
 	i = 0;
-	while (i < count)
+	while (i < n)
 	{
 		if (ptr1[i] != ptr2[i])
 			return (ptr1[i] - ptr2[i]);
@@ -21,35 +21,35 @@ int	ft_memcmp(const void *buf1, const void *buf2, size_t count)
 
 /*## Function: ft_memcmp
 ### Prototype:
- `int	ft_memcmp(const void *buf1, const void *buf2, size_t count)`
+ `int	ft_memcmp(const void *s1, const void *s2, size_t n)`
 
 ### Description:
- The `ft_memcmp` function compares the first `count` bytes of the memory areas 
- `buf1` and `buf2`. The comparison is done byte by byte, and it returns an integer 
- indicating whether the first difference between the memory blocks makes `buf1` 
- less than, equal to, or greater than `buf2`.
+ The `ft_memcmp` function compares the first `n` bytes of the memory areas 
+ `s1` and `s2`. The comparison is done byte by byte, and it returns an integer 
+ indicating whether the first difference between the memory blocks makes `s1` 
+ less than, equal to, or greater than `s2`.
 
 ### Parameters:
- - `const void *buf1`: A pointer to the first memory area.
- - `const void *buf2`: A pointer to the second memory area.
- - `size_t count`: The number of bytes to compare.
+ - `const void *s1`: A pointer to the first memory area.
+ - `const void *s2`: A pointer to the second memory area.
+ - `size_t n`: The number of bytes to compare.
 
 ### Return:
- - Returns an integer less than 0 if `buf1` is less than `buf2`.
- - Returns 0 if `buf1` is equal to `buf2`.
- - Returns an integer greater than 0 if `buf1` is greater than `buf2`.
+ - Returns an integer less than 0 if `s1` is less than `s2`.
+ - Returns 0 if `s1` is equal to `s2`.
+ - Returns an integer greater than 0 if `s1` is greater than `s2`.
 
 ### Details:
  - The function treats the memory as a sequence of `unsigned char` values, 
- comparing each byte in `buf1` to the corresponding byte in `buf2`.
+ comparing each byte in `s1` to the corresponding byte in `s2`.
  - If a difference is found, the function immediately returns the difference 
  between the two differing bytes.
- - If no difference is found within `count` bytes, the function returns 0.
+ - If no difference is found within `n` bytes, the function returns 0.
 
 ### Important notes:
  - The function stops comparing as soon as it finds a difference, even if fewer 
- than `count` bytes have been checked.
- - The memory areas `buf1` and `buf2` are treated as sequences of `unsigned char` 
+ than `n` bytes have been checked.
+ - The memory areas `s1` and `s2` are treated as sequences of `unsigned char` 
  to ensure correct comparison for all byte values.*/
 
 // ### Compile:
@@ -61,10 +61,10 @@ int	ft_memcmp(const void *buf1, const void *buf2, size_t count)
 #include <string.h>  // For memcmp
 
 // Prototype of ft_memcmp
-int	ft_memcmp(const void *buf1, const void *buf2, size_t count);
+int	ft_memcmp(const void *s1, const void *s2, size_t n);
 
 // Prototype of helper functions
-void		*ft_memcpy(void *dest, const void *src, size_t count);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
 static void	ft_memprint_hex(const void *s, size_t n);
 
 static void	ft_memprint_hex(const void *s, size_t n)

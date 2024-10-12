@@ -1,14 +1,14 @@
 
 #include <libft.h>
 
-void	*ft_memchr(const void *buf, int c, size_t count)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
 	const unsigned char	*ptr;
 	size_t				i;
 
-	ptr = (const unsigned char *)buf;
+	ptr = (const unsigned char *)s;
 	i = 0;
-	while (i < count)
+	while (i < n)
 	{
 		if (ptr[i] == (unsigned char)c)
 			return ((void *)(ptr + i));
@@ -19,29 +19,29 @@ void	*ft_memchr(const void *buf, int c, size_t count)
 
 /*## Function: ft_memchr
 ### Prototype:
- `void	*ft_memchr(const void *buf, int c, size_t count)`
+ `void	*ft_memchr(const void *s, int c, size_t n)`
 
 ### Description:
- The `ft_memchr` function searches the first `count` bytes of the memory area pointed 
- to by `buf` for the first occurrence of the byte value `c` (converted to `unsigned char`). 
- The search stops once the byte `c` is found or when `count` bytes have been checked.
+ The `ft_memchr` function searches the first `n` bytes of the memory area pointed 
+ to by `s` for the first occurrence of the byte value `c` (converted to `unsigned char`). 
+ The search stops once the byte `c` is found or when `n` bytes have been checked.
 
 ### Parameters:
- - `const void *buf`: A pointer to the memory area to be searched.
+ - `const void *s`: A pointer to the memory area to be searched.
  - `int c`: The byte value to search for. This value is passed as an `int`, but 
  it is converted to an `unsigned char`.
- - `size_t count`: The number of bytes to search.
+ - `size_t n`: The number of bytes to search.
 
 ### Return:
  - Returns a pointer to the first occurrence of the byte `c` in the memory area 
- `buf`, or `NULL` if the byte is not found within the first `count` bytes.
+ `s`, or `NULL` if the byte is not found within the first `n` bytes.
 
 ### Details:
  - The function treats the memory as a sequence of `unsigned char` values, 
  comparing each byte in the memory area to the byte `c`.
  - If the byte is found, the function returns a pointer to the location of the 
  first occurrence of `c` in the memory area.
- - If `c` is not found in the first `count` bytes, the function returns `NULL`.
+ - If `c` is not found in the first `n` bytes, the function returns `NULL`.
 
 ### Important notes:
  - The value `c` is converted to `unsigned char` for comparison, ensuring that 
@@ -56,11 +56,11 @@ void	*ft_memchr(const void *buf, int c, size_t count)
 #include <string.h>  // For memchr
 
 // Prototype of ft_memchr
-void	*ft_memchr(const void *buf, int c, size_t count);
+void	*ft_memchr(const void *s, int c, size_t n);
 
 // Prototype of helper functions
-int			ft_memcmp(const void *buf1, const void *buf2, size_t count);
-void		*ft_memcpy(void *dest, const void *src, size_t count);
+int			ft_memcmp(const void *s1, const void *s2, size_t n);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
 static void	ft_memprint_hex(const void *s, size_t n);
 
 static void	ft_memprint_hex(const void *s, size_t n)
@@ -88,27 +88,27 @@ int main(void)
 	typedef struct s_test_case
 	{
 		const char 	*description;
-		const void	*buffer;
+		const void	*sfer;
 		int			search_char;
 		size_t 		n;
 		void		*expected_result;
 	}				t_test_case;
 
-	// Define test buffers
-	unsigned char buffer1[] = "Hello, World!";
-	unsigned char buffer2[] = {0x00, 0x01, 0x02, 0x03, 0x04};
-	unsigned char buffer3[] = "Test string with multiple characters";
+	// Define test sfers
+	unsigned char sfer1[] = "Hello, World!";
+	unsigned char sfer2[] = {0x00, 0x01, 0x02, 0x03, 0x04};
+	unsigned char sfer3[] = "Test string with multiple characters";
 
 	// Define test cases
 	t_test_case tests[] = {
-		{"Test 1: Search for 'W' in \"Hello, World!\"", buffer1, 'W', ft_strlen((char *)buffer1), memchr(buffer1, 'W', ft_strlen((char *)buffer1))},
-		{"Test 2: Search for 'z' not in buffer", buffer1, 'z', ft_strlen((char *)buffer1), memchr(buffer1, 'z', ft_strlen((char *)buffer1))},
-		{"Test 3: Search for '\\0' in buffer", buffer1, '\0', ft_strlen((char *)buffer1) + 1, memchr(buffer1, '\0', ft_strlen((char *)buffer1) + 1)},
-		{"Test 4: Search in zero bytes (n = 0)", buffer1, 'H', 0, memchr(buffer1, 'H', 0)},
-		{"Test 5: Search for 0x03 in binary data", buffer2, 0x03, sizeof(buffer2), memchr(buffer2, 0x03, sizeof(buffer2))},
-		{"Test 6: Search for 't' in buffer with multiple occurrences", buffer3, 't', ft_strlen((char *)buffer3), memchr(buffer3, 't', ft_strlen((char *)buffer3))},
-		{"Test 7: Search for 'T' ", buffer3, 'T', ft_strlen((char *)buffer3), memchr(buffer3, 'T', ft_strlen((char *)buffer3))},
-		{"Test 8: Search for negative value -1", buffer1, -1, ft_strlen((char *)buffer1), memchr(buffer1, -1, ft_strlen((char *)buffer1))},
+		{"Test 1: Search for 'W' in \"Hello, World!\"", sfer1, 'W', ft_strlen((char *)sfer1), memchr(sfer1, 'W', ft_strlen((char *)sfer1))},
+		{"Test 2: Search for 'z' not in sfer", sfer1, 'z', ft_strlen((char *)sfer1), memchr(sfer1, 'z', ft_strlen((char *)sfer1))},
+		{"Test 3: Search for '\\0' in sfer", sfer1, '\0', ft_strlen((char *)sfer1) + 1, memchr(sfer1, '\0', ft_strlen((char *)sfer1) + 1)},
+		{"Test 4: Search in zero bytes (n = 0)", sfer1, 'H', 0, memchr(sfer1, 'H', 0)},
+		{"Test 5: Search for 0x03 in binary data", sfer2, 0x03, sizeof(sfer2), memchr(sfer2, 0x03, sizeof(sfer2))},
+		{"Test 6: Search for 't' in sfer with multiple occurrences", sfer3, 't', ft_strlen((char *)sfer3), memchr(sfer3, 't', ft_strlen((char *)sfer3))},
+		{"Test 7: Search for 'T' ", sfer3, 'T', ft_strlen((char *)sfer3), memchr(sfer3, 'T', ft_strlen((char *)sfer3))},
+		{"Test 8: Search for negative value -1", sfer1, -1, ft_strlen((char *)sfer1), memchr(sfer1, -1, ft_strlen((char *)sfer1))},
 	};
 
 	int num_tests = sizeof(tests) / sizeof(tests[0]);
@@ -119,26 +119,26 @@ int main(void)
 	while (i < num_tests)
 	{
 		// Apply ft_memchr
-		void *result = ft_memchr(tests[i].buffer, tests[i].search_char, tests[i].n);
+		void *result = ft_memchr(tests[i].sfer, tests[i].search_char, tests[i].n);
 
 		// Print the results
 		printf("%s\n", tests[i].description);
 
-		// Print buffer content
-		printf("Buffer: ");
+		// Print sfer content
+		printf("sfer: ");
 		fflush(stdout);
-		ft_memprint_hex(tests[i].buffer, tests[i].n);
+		ft_memprint_hex(tests[i].sfer, tests[i].n);
 
 		// Print expected and actual results
 		printf("Expected result: ");
 		if (tests[i].expected_result)
-			printf("Found at position %ld\n", (unsigned char *)tests[i].expected_result - (unsigned char *)tests[i].buffer);
+			printf("Found at position %ld\n", (unsigned char *)tests[i].expected_result - (unsigned char *)tests[i].sfer);
 		else
 			printf("Not found (NULL)\n");
 
 		printf("ft_memchr result: ");
 		if (result)
-			printf("Found at position %ld\n", (unsigned char *)result - (unsigned char *)tests[i].buffer);
+			printf("Found at position %ld\n", (unsigned char *)result - (unsigned char *)tests[i].sfer);
 		else
 			printf("Not found (NULL)\n");
 
