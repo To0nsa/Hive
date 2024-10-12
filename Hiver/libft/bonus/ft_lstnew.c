@@ -1,4 +1,5 @@
-#include <libft.h>
+
+#include "libft.h"
 
 t_list	*ft_lstnew(void *content)
 {
@@ -52,44 +53,60 @@ t_list	*ft_lstnew(void *content)
     that require dynamic linked lists.
 
  4- Storing pointers to dynamically allocated data: Nodes can hold pointers to any
-    allocated data, allowing flexible list structures.
-*/
+    allocated data, allowing flexible list structures.*/
 
 // ### Compile: 
 // cc -Wall -Wextra -Werror -I include bonus/ft_lstnew.c -L lib -lft -o test/test_ft_lstnew
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <libft.h>
+#include "libft.h"
+
+// Prototype of ft_lstnew function
+t_list	*ft_lstnew(void *content);
+
+// Prototype of helper functions
+char	*ft_strdup(const char *src);
 
 int main(void)
 {
-	// Test with string content
-	char *str_content = "Hello, World!";
-	t_list *node_str = ft_lstnew((void *)str_content);
+	printf("\033[4mTesting ft_lstnew\033[0m\n");
 
+	// Test with string content
+	char *str_content = ft_strdup("Hello world!");
+	if (!str_content)
+	{
+		printf("ft_strdup failed to allocate memory for str_content\n");
+		return (1);
+	}
+
+	t_list *node_str = ft_lstnew((void *)str_content);
 	if (node_str == NULL)
 	{
 		printf("ft_lstnew returned NULL for string content\n");
+		free(str_content);
 		return (1);
 	}
 	if (node_str->content != str_content)
 	{
 		printf("node_str->content does not match the original string content\n");
+		free(node_str->content);
 		free(node_str);
 		return (1);
 	}
 	if (node_str->next != NULL)
 	{
 		printf("node_str->next is not NULL for string content\n");
+		free(node_str->content);
 		free(node_str);
 		return (1);
 	}
 	printf("Content of node_str: %s\n", (char *)node_str->content);
-	printf("ft_lstnew test with string content passed\n");
+	printf("ft_lstnew test with string content \033[32mPASSED\033[0m\n");
+	free(node_str->content);
 	free(node_str);
 
-    // Test with integer content
+	// Test with integer content
 	int *int_content = malloc(sizeof(int));
 	if (!int_content)
 	{
@@ -99,7 +116,6 @@ int main(void)
 	*int_content = 42;
 
 	t_list *node_int = ft_lstnew((void *)int_content);
-
 	if (node_int == NULL)
 	{
 		printf("ft_lstnew returned NULL for integer content\n");
@@ -120,8 +136,8 @@ int main(void)
 		free(int_content);
 		return (1);
 	}
-	printf("Content of node_int: %ls\n", (int *)node_int->content);
-	printf("ft_lstnew test with integer content passed\n");
+	printf("Content of node_int: %d\n", *(int *)node_int->content);
+	printf("ft_lstnew test with integer content \033[32mPASSED\033[0m\n");
 	free(node_int);
 	free(int_content);
 	return (0);

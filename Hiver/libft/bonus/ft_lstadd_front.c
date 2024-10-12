@@ -3,7 +3,7 @@
 
 void ft_lstadd_front(t_list **lst, t_list *new)
 {
-    if (new == NULL)
+    if (lst == NULL || new == NULL)
         return;
     new->next = *lst;
     *lst = new;
@@ -45,14 +45,23 @@ void ft_lstadd_front(t_list **lst, t_list *new)
     linked list, such as a stack implementation.*/
 
 // ### Compile: 
-// cc -Wall -Wextra -Werror -I include bonus/ft_lstadd_front.c -L lib -lft -o test/test_ft_lstadd_front
+// cc -Wall -Wextra -Werror -I include bonus/ft_lstadd_front.c -L lib -lft -o test/test_ft_lstadd_front 
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <libft.h>
+#include "libft.h"
+
+// Prototype of ft_lstnew function
+void	ft_lstadd_front(t_list **lst, t_list *new);
+
+// Prototype of helper functions
+t_list			*ft_lstnew(void *content);
+char			*ft_strdup(const char *src);
+void			ft_lstclear(t_list **lst, void (*del)(void *));
+static void		ft_print_list(t_list *lst);
+void			del(void *content);
 
 // Helper function to print the list content
-void	ft_print_list(t_list *lst)
+static void	ft_print_list(t_list *lst)
 {
 	while (lst != NULL)
 	{
@@ -62,38 +71,65 @@ void	ft_print_list(t_list *lst)
 	printf("NULL\n");
 }
 
-int	main(void)
+// Del function implementation
+void del(void *content)
 {
-	// Creating a node to be the initial head of the list
-	t_list *head = ft_lstnew((void *)"Second");
-	if (head == NULL)
-	{
-		printf("ft_lstnew returned NULL for initial head node\n");
-		return (1);
-	}
+    free(content);
+}
 
-    // Creating a new node to add at the front
-	t_list *new_node = ft_lstnew((void *)"First");
-	if (new_node == NULL)
-	{
-		printf("ft_lstnew returned NULL for new node\n");
-		free(head);
-		return (1);
+int main(void)
+{
+    // Creating a node to be the initial head of the list with dynamically allocated content
+    char *second_str = ft_strdup("Second");
+    if (second_str == NULL)
+    {
+        printf("ft_strdup failed for 'Second'\n");
+        return (1);
+    }
+
+    t_list *head = ft_lstnew((void *)second_str);
+    if (head == NULL)
+    {
+        printf("ft_lstnew returned NULL for initial head node\n");
+        free(second_str);
+        return (1);
+    }
+
+    // Creating a new node to add at the front with dynamically allocated content
+    char *first_str = ft_strdup("First");
+    if (first_str == NULL)
+    {
+        printf("ft_strdup failed for 'First'\n");
+        ft_lstclear(&head, del);
+        return (1);
+    }
+
+    t_list *new_node = ft_lstnew((void *)first_str);
+    if (new_node == NULL)
+    {
+        printf("ft_lstnew returned NULL for new node\n");
+        free(first_str);
+        ft_lstclear(&head, del);
+        return (1);
     }
 
     // Before adding new_node
-	printf("List before adding new node at the front:\n");
-	ft_print_list(head);
+    printf("List before adding new node at the front:\n");
+    ft_print_list(head);
 
     // Add new_node to the front
-	ft_lstadd_front(&head, new_node);
+    ft_lstadd_front(&head, new_node);
 
     // After adding new_node
-	printf("List after adding new node at the front:\n");
-	ft_print_list(head);
+    printf("List after adding new node at the front:\n");
+    ft_print_list(head);
 
-    // Freeing the nodes
-	free(head);
+    // Freeing the nodes using ft_lstclear
+    ft_lstclear(&head, del);
 
-	return (0);
+    // Verify that the list is cleared
+    printf("List after ft_lstclear:\n");
+    ft_print_list(head);
+
+    return (0);
 }

@@ -1,12 +1,13 @@
 
 #include <libft.h>
 
-void ft_print_list(t_list *lst)
+void print_list(t_list *lst)
 {
-    while (lst != NULL)
+    int i = 0;
+    while (lst)
     {
-        printf("%s -> ", (char *)lst->content);
+        printf("Node %d: %s\n", i, (char *)lst->content);
         lst = lst->next;
+        i++;
     }
-    printf("NULL\n");
 }
