@@ -59,7 +59,6 @@ t_list	*ft_lstnew(void *content)
 // cc -Wall -Wextra -Werror -I include bonus/ft_lstnew.c -L lib -lft -o test/test_ft_lstnew
 
 #include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
 
 // Prototype of ft_lstnew function
